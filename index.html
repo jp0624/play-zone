@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#100e19">
 <meta name="description" content="Match space puppets, spell with sea creatures, navigate a jungle, and restore an Egyptian museum.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2096%2096%22%20aria-hidden%3D%22true%22%3E%3Crect%20x%3D%225%22%20y%3D%225%22%20width%3D%2286%22%20height%3D%2286%22%20rx%3D%2221%22%20fill%3D%22%2329162f%22%20stroke%3D%22%23ffd18a%22%20stroke-width%3D%224%22%2F%3E%3Crect%20x%3D%2216%22%20y%3D%2224%22%20width%3D%2264%22%20height%3D%2250%22%20rx%3D%228%22%20fill%3D%22%23ffc079%22%2F%3E%3Cpath%20fill%3D%22%23a54463%22%20d%3D%22M16%2024h64L70%2048l-3%2026H55l7-31q-14%209-28%200l7%2031H28l-3-26z%22%2F%3E%3Cpath%20fill%3D%22%2329162f%22%20d%3D%22m39%2044%2023%2012-23%2012zm10%2019h3v15h-3z%22%2F%3E%3Cpath%20fill%3D%22%23ffefbe%22%20d%3D%22m78%207%203%208%208%203-8%203-3%208-3-8-8-3%208-3z%22%2F%3E%3C%2Fsvg%3E">
 <title>Play Zone · A Game Center for Kids</title>
 <style>
 :root{color-scheme:dark;--ink:#fff5e1;--muted:#d2c4d6;--night:#100e19;--gold:#ffd486;font-family:system-ui,sans-serif}
@@ -25,14 +26,18 @@ footer{margin:32px 0 20px;color:var(--muted);font-size:.9rem}.game{margin:20px a
 .map{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:3px;padding:5px;border-radius:12px;background:#1c2225;margin:12px 0}.map-cell{display:grid;justify-items:center;align-content:center;min-height:63px;text-align:center;border-radius:5px;background:radial-gradient(ellipse,#b8de91,#7ba465);color:#1c2225;font-size:.76rem;font-weight:850;overflow-wrap:anywhere}.map-cell .puppet{width:34px}.map-cell.here{outline:3px solid #fff1bb;outline-offset:-3px;background:#ffd486}.map-cell:not(.here):has(.puppet):not(:has(span:last-child:nth-child(2))) .puppet{opacity:.36}
 @media(max-width:560px){.rack:has(.prop),.rack:has(.slot){grid-template-columns:repeat(2,minmax(0,1fr))}.map-cell{min-height:55px;font-size:.68rem}.map-cell .puppet{width:25px}}
 @media(prefers-reduced-motion:reduce){.actor.awake{transform:none}}
+
+.brand{display:inline-flex;align-items:center;gap:9px;font:700 1.3rem Georgia,serif}.brand span{color:var(--ink)}.brand svg{width:37px;height:37px}.logo{display:block;margin:0 auto 8px;width:72px;height:72px;transform:rotate(-9deg)}.hero .logo svg{position:static;width:100%;height:100%}.hero div{padding-block:22px}
+.level-menu{display:flex;flex-wrap:wrap;align-items:center;gap:10px;border-bottom:1px solid #ffffff28;padding:6px 0 13px}.level-menu select{font:inherit;max-width:100%;background:#352a43;color:var(--ink);padding:7px;border:1px solid #ac8fae;border-radius:8px}.level-menu span{color:var(--muted)}
+@media(max-width:460px){.logo{width:57px;height:57px}}
 </style>
 </head>
 <body>
 <div class="shell">
-<header><button class="brand" id="homeButton"><span aria-hidden="true">✦</span> PLAY ZONE</button><span class="score" id="stars">0 stars earned</span></header>
+<header><button class="brand" id="homeButton"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" aria-hidden="true"><rect x="5" y="5" width="86" height="86" rx="21" fill="#29162f" stroke="#ffd18a" stroke-width="4"/><rect x="16" y="24" width="64" height="50" rx="8" fill="#ffc079"/><path fill="#a54463" d="M16 24h64L70 48l-3 26H55l7-31q-14 9-28 0l7 31H28l-3-26z"/><path fill="#29162f" d="m39 44 23 12-23 12zm10 19h3v15h-3z"/><path fill="#ffefbe" d="m78 7 3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/></svg><span>Play Zone</span></button><span class="score" id="stars">0 stars earned</span></header>
 <main>
 <section id="lobby">
-<div class="hero"><svg viewBox="0 0 1000 180" preserveAspectRatio="xMidYMax slice" aria-hidden="true" fill="currentColor"><path d="M0 156L65 145L113 155L183 139L235 150L297 145L360 154L411 144L471 153L534 148L601 156L671 146L730 155L792 145L868 147L927 139L1000 148V180H0Z M66 150L69 93L47 75L72 78L82 48L93 76L119 67L101 88L94 152Z M887 153L920 82L967 153Z"/><circle cx="158" cy="66" r="24"/><ellipse cx="158" cy="66" rx="47" ry="8" transform="rotate(-22 158 66)" fill="none" stroke="currentColor" stroke-width="4"/><path d="M804 117Q830 89 856 104L884 92L877 112L883 125L855 119Q827 137 804 117Z M847 114H851V150H847Z"/></svg><div><span class="eyebrow">A game center for kids</span><h1 tabindex="-1" id="lobbyTitle">Play Zone</h1><p>The curtain is up. Choose a puppet stage.</p></div></div>
+<div class="hero"><svg viewBox="0 0 1000 180" preserveAspectRatio="xMidYMax slice" aria-hidden="true" fill="currentColor"><path d="M0 156L65 145L113 155L183 139L235 150L297 145L360 154L411 144L471 153L534 148L601 156L671 146L730 155L792 145L868 147L927 139L1000 148V180H0Z M66 150L69 93L47 75L72 78L82 48L93 76L119 67L101 88L94 152Z M887 153L920 82L967 153Z"/><circle cx="158" cy="66" r="24"/><ellipse cx="158" cy="66" rx="47" ry="8" transform="rotate(-22 158 66)" fill="none" stroke="currentColor" stroke-width="4"/><path d="M804 117Q830 89 856 104L884 92L877 112L883 125L855 119Q827 137 804 117Z M847 114H851V150H847Z"/></svg><div><span class="logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" aria-hidden="true"><rect x="5" y="5" width="86" height="86" rx="21" fill="#29162f" stroke="#ffd18a" stroke-width="4"/><rect x="16" y="24" width="64" height="50" rx="8" fill="#ffc079"/><path fill="#a54463" d="M16 24h64L70 48l-3 26H55l7-31q-14 9-28 0l7 31H28l-3-26z"/><path fill="#29162f" d="m39 44 23 12-23 12zm10 19h3v15h-3z"/><path fill="#ffefbe" d="m78 7 3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/></svg></span><span class="eyebrow">A game center for kids</span><h1 tabindex="-1" id="lobbyTitle">Play Zone</h1><p>The curtain is up. Choose a puppet stage.</p></div></div>
 <h2 class="section-title">Choose a game</h2>
 <div class="games" id="games"></div>
 <footer>Play at your own pace. Stage stars stay on this device.</footer>
@@ -40,7 +45,7 @@ footer{margin:32px 0 20px;color:var(--muted);font-size:.9rem}.game{margin:20px a
 <section class="game" id="game" hidden>
 <button class="control" id="back">All games</button>
 <div id="scene"></div>
-<div class="panel"><div class="meta" id="world"></div><h1 id="title" tabindex="-1"></h1><div id="activity"></div><p id="feedback" class="feedback" role="status"></p><div class="actions" id="actions"></div></div>
+<div class="panel"><div class="meta" id="world"></div><h1 id="title" tabindex="-1"></h1><div class="level-menu"><label for="level">Level</label><select id="level"></select><span id="progress"></span></div><div id="activity"></div><p id="feedback" class="feedback" role="status"></p><div class="actions" id="actions"></div></div>
 </section>
 </main>
 </div>
@@ -102,12 +107,99 @@ const exhibits = [
   ["shabti", "Shabti figurine", "Tomb exhibit", "People placed shabti figures in tombs to serve the deceased in the afterlife."]
 ];
 
+
+const spaceExtras = [
+ ["lander","Lunar lander","A lander is designed to touch down on another world.","M30 26H70L78 62H22Z M29 61L14 87H24L43 61Z M57 61L76 87H86L71 61Z"],
+ ["satellite","Satellite","Satellites travel in orbit around other objects.","M38 34H62V66H38Z M7 37H33V61H7Z M67 37H93V61H67Z M48 16H53V34H48Z"],
+ ["rover","Rover","Rovers explore the surface of places like Mars.","M15 43H85L93 65L78 84H22L7 65Z M30 28H63V43H30Z"],
+ ["telescope","Telescope","Telescopes collect light to help us see distant objects.","M9 25L72 10L83 42L19 59Z M43 52H54L73 91H64L49 68L34 91H24Z"],
+ ["capsule","Crew capsule","A capsule needs a heat shield when it returns through the atmosphere.","M50 12L85 67L73 85H27L15 67Z"],
+ ["star","Star puppet","Stars make their own light. Our Sun is a star.","M50 8L62 36L92 39L70 59L75 89L50 75L25 89L30 59L8 39L38 36Z"],
+ ["dish","Signal dish","A dish antenna receives faint signals from far away.","M13 26Q38 72 74 48L13 26Z M43 56L32 86H72L57 55Z M52 39L72 15L79 22L57 43Z"],
+ ["eclipse","Eclipse","During a total solar eclipse, the Moon covers the Sun from some places on Earth.","M50 11A39 39 0 1 1 49.9 11Z M50 25A25 25 0 1 0 50.1 25Z"]
+];
+const exhibitExtras = [
+ ["palette","Scribe’s palette","Scribe’s workshop","Palettes held ink and writing tools.","Holds a writer’s ink","M12 43Q13 13 55 15Q91 17 91 49Q91 70 56 70Q43 92 24 77Z"],
+ ["seal","Stamp seal","Records room","Seals could leave identifying impressions in clay.","Leaves a mark in clay","M36 16Q50 8 64 16L70 42L61 59H39L30 42Z M25 66H75L88 88H12Z"],
+ ["bowl","Pottery bowl","Kitchen","Pottery was used to prepare, serve and store food.","An open vessel for serving food","M9 32H91Q86 77 67 86H33Q14 77 9 32Z"],
+ ["harp","Harp","Music room","Harps appear in ancient Egyptian pictures of musicians.","A stringed instrument","M15 85Q42 71 53 34Q62 13 85 12V22Q65 23 61 47L54 77H84V85Z M73 25H77V77H73Z"],
+ ["sandal","Sandal","Clothing gallery","Sandals could be made from leather or plant fibres.","Something worn on the feet","M23 70Q29 38 59 17Q80 9 89 30Q91 48 63 73Q37 96 23 70Z"],
+ ["mirror","Polished mirror","Dressing table","Mirrors could be made from polished metal.","Reflects a person’s face","M50 9Q77 9 77 35Q77 57 56 62V88H44V62Q23 57 23 35Q23 9 50 9Z"],
+ ["collar","Bead collar","Jewellery case","Broad collars could contain rows of colourful beads.","An ornament made of rows of beads","M16 16L27 20Q18 60 50 76Q82 60 73 20L84 16Q96 69 50 92Q4 69 16 16Z"],
+ ["scarab","Scarab ornament","Sacred symbols","Scarab beetles were linked with the rising Sun and renewal.","A beetle-shaped symbol","M33 14Q50 6 67 14L76 34L80 61L67 85L50 94L33 85L20 61L24 34Z"]
+];
+for (const entry of [...spaceExtras,...exhibitExtras]) {
+  puppets[entry[0]] = '<path fill-rule="evenodd" d="' + entry.at(-1) + '"/>';
+}
+const seaWords = [
+ ["crab","CLAW","What does a crab use to grip food?","A crab can pinch with its claws."],
+ ["ray","FIN","What helps a ray steer through the water?","A ray swims with wide fins."],
+ ["coral","REEF","What underwater structure can tiny coral animals build?","A reef shelters many animals."],
+ ["whale","TAIL","What part does a whale move up and down to swim?","A whale’s tail has two lobes called flukes."],
+ ["ray","GLIDE","What verb means to move smoothly through water?","A ray glides by moving its wide fins."],
+ ["boat","TIDE","What is the regular rise and fall of sea level called?","The Moon’s gravity helps cause tides."],
+ ["crab","SHELL","What hard covering protects a crab?","A crab sheds its old shell as it grows."],
+ ["boat","ANCHOR","What does a boat lower to help it stay put?","An anchor grips the bottom."],
+ ["coral","POLYP","What is one tiny coral animal called?","Many polyps can live in a single colony."],
+ ["whale","MAMMAL","What kind of animal breathes air and feeds its young milk?","Whales are mammals."],
+ ["ray","GILLS","What do fish use to take oxygen from water?","Water flows over a ray’s gills."],
+ ["whale","BLOWHOLE","What opening does a whale breathe through?","A blowhole sits on top of a whale’s head."],
+ ["boat","CURRENT","What is a steady flow of water called?","Currents carry water and nutrients."],
+ ["coral","COLONY","What is a group of tiny coral animals living together called?","A coral colony can grow from one polyp."],
+ ["crab","HABITAT","What is a living thing’s natural home called?","A habitat provides food and shelter."],
+ ["whale","MIGRATE","What verb means to travel to another region with the seasons?","Some whales migrate to feed or raise young."],
+ ["ray","CAMOUFLAGE","What helps an animal blend in with its surroundings?","Some rays blend in with the sea floor."],
+ ["coral","ECOSYSTEM","What word means living things and their environment acting together?","Coral reefs are ecosystems."],
+ ["crab","CRUSTACEAN","What kind of animal is a crab?","Lobsters and shrimp are crustaceans too."],
+ ["ray","PREDATOR","What word means an animal that hunts others for food?","Some rays hunt shellfish and other small animals."]
+];
+const namedSets = (catalog, sets) => sets.map(([title, ...indices]) => [title, indices.map(index => catalog[index])]);
+const museum = [
+ ...exhibits.map((entry,index)=>[...entry,["A surface for writing","A container for organs","Transport along the river","A figure for the afterlife"][index]]),
+ ...exhibitExtras
+];
+const routes = [
+ ["River bend",[4,0],[2,0],[2,2],[0,3]],["Westbound trail",[4,3],[0,3],[1,1],[4,0]],
+ ["Canopy trail",[2,3],[2,0],[0,0],[4,2]],["Crossing to camp",[0,0],[4,0],[4,3],[1,3]],
+ ["Ridge lookout",[1,3],[1,0],[3,0],[3,2],[0,2]],["Rainy season route",[3,0],[0,1],[0,3],[2,3],[4,1]],
+ ["East forest survey",[0,3],[3,3],[3,1],[4,0],[2,0]],["Four corners",[2,1],[0,0],[4,0],[0,3],[4,3]],
+ ["Canopy to camp",[1,1],[1,3],[4,3],[4,0],[0,1]],["Grand expedition",[2,2],[0,3],[0,0],[4,0],[2,1],[4,3]]
+];
+const levels = {
+ match: [["Meet the space cast",orbit], ...namedSets([...orbit,...spaceExtras],[
+ ["First launch",0,4,6,5],["Lunar landing",0,3,4,8],["Giant planet flyby",1,2,5,7],["Night sky watch",2,3,7,9],
+ ["Signal rescue",4,5,6,7,10],["Light and shadow",1,3,7,9,11],["Planetary field trip",0,2,5,6,8],
+ ["Mission control",0,4,5,8,10],["Deep space survey",1,2,5,7,9,11],["Grand space parade",0,1,2,3,4,5,6,7,8,9,10,11]])],
+ english: [["Meet the sea cast",words],...["Fins and claws","Over the reef","Ride the tide","At the dock","Whale watch","How fish breathe","Drifters","Oceans in motion","Life on the reef","Reef food web"].map((title,index)=>[title,seaWords.slice(index*2,index*2+2)])],
+ geography: [["First rainforest trail",[0,2],[1,0],[3,1],[4,3]],...routes],
+ trivia: [["First exhibits",museum.slice(0,4)],...namedSets(museum,[
+ ["Scribe school",0,4,5],["The busy Nile",2,5,6],["Afterlife gallery",1,3,11],["A day at home",6,8,9],
+ ["Music and ornaments",7,9,10],["Trade and records",0,2,4,5],["Fine craft",6,8,9,10,11],
+ ["Burial customs",1,3,10,11],["Museum after dark",4,5,7,8,9],["Grand reopening",0,1,2,3,4,5,6,7,8,9,10,11]])]
+};
+
 const byId = id => document.getElementById(id);
 const activity = byId("activity");
 const feedback = byId("feedback");
 const actions = byId("actions");
 const starKey = "play-zone-stars";
 let stars = 0;
+let levelIndex = 0;
+const levelKey = "play-zone-cleared";
+let cleared = {};
+try { cleared = JSON.parse(localStorage.getItem(levelKey)) || {}; } catch {}
+const clearedLevel = (id,index) => cleared[id + ":" + index] === true;
+function showLevels(id) {
+  const picker = byId("level");
+  picker.replaceChildren(...levels[id].map(([title], index) => {
+    const option = element("option", (index + 1) + ". " + title + (clearedLevel(id,index) ? " ✓" : ""));
+    option.value = index;
+    return option;
+  }));
+  picker.value = levelIndex;
+  picker.onchange = () => start(id, Number(picker.value), true);
+  byId("progress").textContent = levels[id].filter((_,index) => clearedLevel(id,index)).length + " of 11 complete";
+}
 let lastGameButton;
 
 try {
@@ -157,7 +249,8 @@ function showLobby() {
   (lastGameButton ?? byId("lobbyTitle")).focus();
 }
 
-function start(id) {
+function start(id, index = 0, keepFocus = false) {
+  levelIndex = index;
   const game = games[id];
   byId("lobby").hidden = true;
   byId("game").hidden = false;
@@ -167,19 +260,30 @@ function start(id) {
   byId("title").textContent = game.title;
   actions.replaceChildren();
   feedback.textContent = "";
-  ({match: playOrbit, english: playWords, geography: playMap, trivia: playMuseum})[id]();
-  byId("title").focus();
+  showLevels(id);
+  ({match: playOrbit, english: playWords, geography: playMap, trivia: playMuseum})[id](levels[id][index]);
+  if (!keepFocus) byId("title").focus();
 }
 
 function finish(id, earned, message) {
-  stars += earned;
+  const index = levelIndex;
+  const firstClear = !clearedLevel(id,index);
+  if (firstClear) {
+    cleared[id + ":" + index] = true;
+    stars += earned;
+    try { localStorage.setItem(levelKey, JSON.stringify(cleared)); } catch {}
+  }
+  showLevels(id);
   try { localStorage.setItem(starKey, String(stars)); } catch {}
   showStars();
   const heading = element("h2", "Round complete");
   heading.tabIndex = -1;
   activity.replaceChildren(heading, element("p", message));
-  feedback.textContent = earned === 1 ? "You earned 1 star." : "You earned " + earned + " stars.";
-  actions.replaceChildren(button("Play again", "control primary", () => start(id)));
+  feedback.textContent = firstClear ? "You earned " + earned + " stars." : "You already earned the stars for this level.";
+  actions.replaceChildren(button("Replay level", "control", () => start(id,index)));
+  if (index + 1 < levels[id].length) {
+    actions.prepend(button("Next level", "control primary", () => start(id,index + 1)));
+  }
   heading.focus();
 }
 
@@ -238,7 +342,7 @@ function putOnStage(pieces, slots, instructions, id) {
     progress.textContent = placed + " of " + pieces.length + " placed";
     if (placed === pieces.length) {
       actions.append(button("Collect your stars", "control primary", () =>
-        finish(id, placed, id === "match" ? "You matched every puppet to its shadow." : "You opened all four museum exhibits.")));
+        finish(id, placed, id === "match" ? "You matched every puppet to its shadow." : "You restored every exhibit in this gallery.")));
     }
   }
 
@@ -274,20 +378,19 @@ function putOnStage(pieces, slots, instructions, id) {
   activity.replaceChildren(element("p", instructions), progress, stage, tray);
 }
 
-function playOrbit() {
-  putOnStage(orbit, shuffle(orbit).map(([key, name], index) => [key, "Shadow " + (index + 1)]),
+function playOrbit([,pieces]) {
+  putOnStage(pieces, shuffle(pieces).map(([key, name], index) => [key, "Shadow " + (index + 1)]),
     "Drag a space puppet onto its shadow, or select the puppet and then its shadow.", "match");
 }
 
-function playMuseum() {
-  const hints = ["A surface for writing", "A container for organs", "Transport along the river", "A figure for the afterlife"];
-  putOnStage(exhibits.map(([key, name, , fact]) => [key, name, fact]),
-    exhibits.map(([key, , room], index) => [key, room + " · " + hints[index]]),
+function playMuseum([,collection]) {
+  putOnStage(collection.map(([key,name,,fact]) => [key,name,fact]),
+    collection.map(([key,,room,,hint]) => [key,room + " · " + hint]),
     "The museum is missing its artifacts. Drag each one into its exhibit, or select the artifact and then its exhibit.", "trivia");
 }
 
-function playWords() {
-  const cast = shuffle(words);
+function playWords([,wordList]) {
+  const cast = shuffle(wordList);
   let scene = 0;
 
   function render() {
@@ -298,8 +401,8 @@ function playWords() {
     actor.classList.add("actor");
     const blanks = rack("Your spelling");
     const letters = rack("Letter tiles");
-    const twists = { crab: "OT", ray: "OP", coral: "UM", whale: "IS" };
-    const tiles = shuffle([...(word + twists[key])]);
+    const extras = shuffle([..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"].filter(letter => !word.includes(letter))).slice(0, levelIndex >= 6 ? 4 : 2);
+    const tiles = shuffle([...word, ...extras]);
     const chosen = [];
     const slots = [...word].map(() => element("span", "·", "letter-slot"));
     const stage = element("div", "", "word-stage");
@@ -343,7 +446,7 @@ function playWords() {
         feedback.textContent = word + "! " + fact;
         const next = button(scene + 1 === cast.length ? "Collect your stars" : "Next sea creature", "control primary", () => {
           scene++;
-          if (scene === cast.length) finish("english", cast.length, "All four sea creatures are ready for the show.");
+          if (scene === cast.length) finish("english", cast.length, "You spelled all " + cast.length + " words in this scene.");
           else render();
         });
         actions.replaceChildren(next);
@@ -359,23 +462,37 @@ function playWords() {
   render();
 }
 
-function playMap() {
-  // Each reference cell sits on a 5-by-4 map with north at the top.
-  const landmarks = [
-    {x:1,y:0,key:"ridge",name:"Ridge",hint:"Head north twice, then one square east to reach the ridge.",fact:"A ridge is a long, narrow stretch of high ground."},
-    {x:3,y:1,key:"river",name:"River crossing",hint:"From the ridge, head two squares east and one south to cross the river.",fact:"A river flows downhill. A crossing can be a bridge or a shallow stretch."},
-    {x:4,y:3,key:"camp",name:"Camp",hint:"From the river crossing, go one square east and two south to reach camp.",fact:"East and west run across this map. North and south run up and down."}
+function playMap([,origin,...waypoints]) {
+  const sites = [
+    ["ridge","Ridge","A ridge is a long stretch of high ground."],
+    ["river","River crossing","A river flows downhill. A crossing connects places on opposite banks."],
+    ["camp","Camp","A map helps explorers find their way back to camp."],
+    ["tree","Canopy grove","The canopy is an upper layer of branches and leaves."],
+    ["ridge","Lookout","From high ground, it can be easier to spot landmarks."]
   ];
-  let x = 0;
-  let y = 2;
+  const landmarks = waypoints.map(([x,y],index) => {
+    const [key,name,fact] = sites[index];
+    return {x,y,key,name,fact};
+  });
+  let [x,y] = origin;
   let found = 0;
   const map = element("div", "", "map");
-  const clue = element("p", landmarks[0].hint);
+  const clue = element("p", "");
   const position = element("p", "", "status");
   const controls = rack("Compass directions");
   const cells = [];
 
   function draw() {
+    const target = landmarks[found];
+    if (!target) clue.textContent = "Trail complete.";
+    else {
+      const dx = target.x - x;
+      const dy = target.y - y;
+      const legs = [];
+      if (dy) legs.push(Math.abs(dy) + (dy < 0 ? " north" : " south"));
+      if (dx) legs.push(Math.abs(dx) + (dx < 0 ? " west" : " east"));
+      clue.textContent = "To reach " + target.name + ", move " + legs.join(", then ") + ".";
+    }
     for (const [index, cell] of cells.entries()) {
       const col = index % 5;
       const row = Math.floor(index / 5);
@@ -406,10 +523,9 @@ function playMap() {
     if (x === target.x && y === target.y) {
       found++;
       feedback.textContent = "You reached " + target.name + "! " + target.fact;
-      clue.textContent = landmarks[found]?.hint ?? "You made it to camp.";
       if (found === landmarks.length) {
         const collect = button("Collect your stars", "control primary", () =>
-          finish("geography", found, "You reached the ridge, crossed the river and found camp."));
+          finish("geography", found, "You reached all " + found + " landmarks on this trail."));
         actions.append(collect);
         collect.focus();
       }
@@ -433,12 +549,13 @@ function playMap() {
 for (const [id, game] of Object.entries(games)) {
   const card = button("", "card " + game.theme, () => {
     lastGameButton = card;
-    start(id);
+    const next = levels[id].findIndex((_,index) => !clearedLevel(id,index));
+    start(id, Math.max(next,0));
   });
   card.innerHTML = art(game.theme);
   const copy = element("span", "", "copy");
   copy.append(element("span", game.subject + " · " + game.world, "subject"),
-    element("strong", game.title), element("span", game.description, "desc"));
+    element("strong", game.title), element("span", game.description, "desc"), element("span", "11 levels", "subject"));
   card.append(copy);
   byId("games").append(card);
 }
