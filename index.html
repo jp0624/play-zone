@@ -51,6 +51,8 @@ footer{margin:32px 0 20px;color:var(--muted);font-size:.9rem}.game{margin:20px a
 @keyframes paper-flight{0%{opacity:0;transform:translate(-50%,-50%) scale(.32)}16%{opacity:1}56%{transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) rotate(var(--turn));opacity:1}100%{transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y) + 17px)) rotate(var(--turn)) scale(.72);opacity:0}}
 @keyframes stage-glow{0%,100%{opacity:0}26%{opacity:1}}
 @media(prefers-reduced-motion:reduce){.paper-star,.applause.curtain::before{animation:none}.paper-star{transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y)))}.applause.curtain::before{opacity:0}}
+
+.game .workbench{padding-top:72px;align-content:stretch}.bench-selection{margin:0 0 10px!important;color:#ffedcc;text-align:left;font-weight:800}.bench-board{display:flex;gap:4px}.bench-bay{flex:1;min-width:0;min-height:76px;position:relative;display:grid;place-items:center;background:#2e2038;border:2px dashed #d4987280;border-radius:8px}.bench-bay.editing{border-style:solid;border-color:#ffdb93;background:#59334a}.bench-bay.passed{border-color:#bee3a1}.bench-bay.blocked{border-color:#ff9b8b;background:#652e43}.workshop-icon{display:block;width:100%;max-width:68px;color:#ffd595}.workshop-icon svg{display:block;width:100%;height:auto}.bench-obstacle{position:absolute;opacity:.48;width:94%;color:#ffe4be}.bench-part{display:block;position:relative;width:94%;max-width:72px}.bench-part .workshop-icon{max-width:none;filter:drop-shadow(0 2px 2px #201022)}.bench-part .workshop-icon:only-child{animation:bench-fit .24s ease-out}.workbench .marble-track{margin:8px 0 5px}.workshop-tool{display:grid;justify-items:center;gap:3px;min-width:88px}.workshop-tool .workshop-icon,.brass .cue .workshop-icon{width:46px}@keyframes bench-fit{from{transform:translateY(-7px);opacity:.35}to{transform:translateY(0);opacity:1}}@media(prefers-reduced-motion:reduce){.bench-part .workshop-icon{animation:none!important}}
 </style>
 </head>
 <body>
@@ -662,7 +664,7 @@ function pauseScene() {
   return new Promise(resolve => setTimeout(resolve,650));
 }
 
-function cuePicker(sequence, choices, labels, stage, instructions, accessibleName, onPlay, limits = {}) {
+function cuePicker(sequence, choices, labels, stage, instructions, accessibleName, onPlay, limits = {}, workshopView = null) {
   let selected = 0;
   let playing = false;
   let solved = false;
@@ -691,16 +693,19 @@ function cuePicker(sequence, choices, labels, stage, instructions, accessibleNam
   });
 
   function draw() {
+    workshopView?.update(arrangement, selected, playing);
     for (const [index, slot] of picker.entries()) {
       const [name, icon] = arrangement[index] ? choices[arrangement[index]] : ["Empty","·"];
-      slot.replaceChildren(element("span",icon,"cue-symbol"),element("strong",labels[index]),element("span",name));
+      slot.replaceChildren(workshopView ? workshopIcon(arrangement[index]) : element("span",icon,"cue-symbol"),element("strong",labels[index]),element("span",name));
       slot.setAttribute("aria-pressed", String(index === selected));
       slot.disabled = playing || solved;
     }
     for (const [key, pick] of controls) {
       const used = arrangement.filter(item => item === key).length;
       const remaining = limits[key] === undefined ? null : limits[key] - used;
-      pick.textContent = choices[key][0] + (remaining === null ? "" : " (" + remaining + " left)");
+      const label = choices[key][0] + (remaining === null ? "" : " (" + remaining + " left)");
+      if (workshopView) pick.replaceChildren(workshopIcon(key), element("span",label));
+      else pick.textContent = label;
       pick.disabled = playing || solved || (remaining === 0 && arrangement[selected] !== key);
     }
     clear.disabled = playing || solved || !arrangement[selected];
@@ -713,12 +718,13 @@ function cuePicker(sequence, choices, labels, stage, instructions, accessibleNam
     timeline.append(slot);
   });
   for (const key of Object.keys(choices)) {
-    const pick = button("","control", () => {
+    const pick = button("",workshopView ? "control workshop-tool" : "control", () => {
+      const position = selected;
       arrangement[selected] = key;
       const next = arrangement.findIndex((entry,index) => !entry && index > selected);
       if (next >= 0) selected = next;
       draw();
-      feedback.textContent = choices[key][0] + " placed.";
+      feedback.textContent = choices[key][0] + (workshopView ? " fitted at " + labels[position] + "." : " placed.");
       if (pick.disabled) picker[selected].focus();
     });
     tray.append(pick);
@@ -729,20 +735,70 @@ function cuePicker(sequence, choices, labels, stage, instructions, accessibleNam
   draw();
 }
 
+
+const workshopDrawings = {
+  ramp: '<path d="M7 8L71 37H7Z"/><path d="M7 8L71 37" stroke="#fff0bb" stroke-width="3"/>',
+  lever: '<path d="M30 37L40 19L50 37Z"/><path d="M7 30L72 10" stroke="currentColor" stroke-width="7" stroke-linecap="round"/><circle cx="40" cy="20" r="3" fill="#fff0bb"/>',
+  spring: '<path d="M21 37H59M23 7H57M29 9L52 15L29 21L52 27L29 34" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>',
+  bridge: '<path d="M6 16H74V23H6Z M12 23H19V38H12Z M61 23H68V38H61Z"/><path d="M17 16Q40 2 63 16" fill="none" stroke="#fff0bb" stroke-width="3"/>',
+  up: '<path d="M4 34H38V13H76" fill="none" stroke="currentColor" stroke-width="5"/>',
+  gap: '<path d="M3 18H26V35H3ZM54 18H77V35H54Z"/>',
+  down: '<path d="M4 11H36V33H76" fill="none" stroke="currentColor" stroke-width="5"/>',
+  low: '<path d="M3 9H77V17H3ZM3 35H77V39H3Z M12 17H17V35H12Z M63 17H68V35H63Z"/>',
+  empty: '<path d="M8 32H72" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="5 5"/>'
+};
+
+function workshopIcon(key) {
+  const art = element("span","","workshop-icon");
+  art.setAttribute("aria-hidden","true");
+  art.innerHTML = '<svg viewBox="0 0 80 44" fill="currentColor">' + workshopDrawings[key ?? "empty"] + '</svg>';
+  return art;
+}
+
 function playWorkshop([,critter,path,limits]) {
   const stage = element("div","","play-screen workbench");
   const track = element("div","","marble-track");
   const marble = element("span","","marble");
   marble.setAttribute("aria-hidden","true");
   const target = element("span",critter + " is asleep.","stage-note");
+  const board = element("div","","bench-board");
+  board.setAttribute("aria-hidden","true");
+  const bays = path.map(step => {
+    const bay = element("div","","bench-bay");
+    const obstacle = workshopIcon(step);
+    obstacle.classList.add("bench-obstacle");
+    const part = element("span","","bench-part");
+    bay.append(obstacle,part);
+    board.append(bay);
+    return {bay,part,key:undefined};
+  });
+  const selection = element("p","","bench-selection");
+  const workshopView = {
+    update(arrangement,selected,playing) {
+      for (const [index,entry] of bays.entries()) {
+        entry.bay.classList.toggle("editing",!playing && index === selected);
+        if (entry.key !== arrangement[index]) {
+          entry.key = arrangement[index];
+          entry.part.replaceChildren(workshopIcon(entry.key));
+        }
+      }
+      const key = arrangement[selected];
+      if (stage.classList.contains("lit")) {
+        selection.textContent = "Marble run complete";
+        return;
+      }
+      selection.textContent = playing ? "Testing your marble run" : "Editing " + labels[selected] + " · " + (key ? workshopPieces[key][0] : "Empty");
+    }
+  };
   track.append(marble);
   const sleeper = element("div","","workshop-critter");
   sleeper.append(puppet(critter === "Owl" ? "owl" : "fox"));
-  stage.append(sleeper,track,target);
+  stage.append(sleeper,selection,board,track,target);
   const labels = path.map((step,index) => (index + 1) + ". " + obstacles[step][0]);
   cuePicker(path,workshopPieces,labels,stage,
-    "Pick a spot on the bench, then fit a piece. Release the marble to see how far it rolls.","Marble run slots",
+    "Tap a numbered slot to highlight it on the bench. Pick a piece to see it snap into place, then release the marble.","Marble run slots",
     async arrangement => {
+      for (const {bay} of bays) bay.classList.remove("passed","blocked");
       marble.style.setProperty("--at","0%");
       feedback.textContent = "The marble is rolling.";
       await pauseScene();
@@ -750,9 +806,12 @@ function playWorkshop([,critter,path,limits]) {
         if (!stage.isConnected || byId('game').hidden) return false;
         const [name,works,hint] = obstacles[step];
         if (!works.includes(arrangement[index])) {
+          bays[index].bay.classList.add("blocked");
+          marble.style.setProperty("--at",((index + .5) / path.length * 100) + "%");
           feedback.textContent = "The marble stopped at " + name.toLowerCase() + ". " + hint;
           return false;
         }
+        bays[index].bay.classList.add("passed");
         marble.style.setProperty("--at",((index + 1) / path.length * 100) + "%");
         feedback.textContent = "The " + workshopPieces[arrangement[index]][0].toLowerCase() + " got it past " + name.toLowerCase() + ".";
         await pauseScene();
@@ -766,7 +825,7 @@ function playWorkshop([,critter,path,limits]) {
       const reward = button("Collect your stars","control primary", () => finish("workshop",path.length,"Your marble run woke " + critter + "."));
       actions.append(reward);
       return true;
-    },limits);
+    },limits,workshopView);
 }
 
 function playFilm([,beats]) {
