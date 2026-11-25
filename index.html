@@ -4,16 +4,27 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#100e19">
-<meta name="description" content="Play four free learning games in a shadow puppet theatre.">
+<meta name="description" content="Match space puppets, spell with sea creatures, navigate a jungle, and restore an Egyptian museum.">
 <title>Play Zone · A Game Center for Kids</title>
 <style>
 :root{color-scheme:dark;--ink:#fff5e1;--muted:#d2c4d6;--night:#100e19;--gold:#ffd486;font-family:system-ui,sans-serif}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#23172e,var(--night) 66%);color:var(--ink);min-height:100vh}button{font:inherit;cursor:pointer}button:focus-visible{outline:3px solid #fff;outline-offset:4px}[hidden]{display:none!important}
 .shell{width:min(1180px,calc(100% - 32px));margin:auto}header{display:flex;justify-content:space-between;align-items:center;padding:20px 0;border-bottom:1px solid #ffffff24;gap:12px}.brand{color:var(--ink);background:none;border:0;padding:6px 0;font-weight:900;letter-spacing:.06em}.brand span,.score{color:var(--gold)}.score{font-size:.9rem;font-weight:800;border:1px solid #ffd48650;padding:8px 13px;border-radius:20px;text-align:center}
 .hero{min-height:350px;display:grid;place-items:center;text-align:center;position:relative;isolation:isolate;overflow:hidden;margin:20px 0 34px;border:1px solid #87616a;border-radius:24px;background:radial-gradient(ellipse at 50% 74%,#ab5641,#462339 62%,#23162b)}.hero::before,.hero::after{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none}.hero::before{background:repeating-linear-gradient(96deg,#291223 0%,#63273d 5%,#311421 12%);clip-path:polygon(0 0,100% 0,100% 100%,91% 100%,87% 25%,68% 11%,50% 15%,32% 11%,13% 25%,9% 100%,0 100%)}.hero::after{background:linear-gradient(transparent 87%,#201320 100%),repeating-linear-gradient(0deg,transparent 0 3px,#180a150f 3px 4px)}.hero div{padding:35px 24px}.hero h1{font-family:Georgia,serif;font-size:clamp(3.8rem,12vw,8rem);letter-spacing:-.075em;line-height:.93;margin:12px 0 19px;text-shadow:0 6px #602d39,0 12px 35px #260f28}.eyebrow{color:var(--gold);text-transform:uppercase;letter-spacing:.16em;font-size:.82rem;font-weight:850}.hero p{margin:0 auto;max-width:27rem}
-.games{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}.section-title{font-family:Georgia,serif;font-size:2rem;margin:0 0 16px}.card{display:flex;flex-direction:column;align-items:stretch;text-align:left;padding:0;overflow:hidden;border:1px solid #ffffff30;border-radius:17px;background:#211b2b;color:var(--ink);transition:transform .18s,border-color .18s}.card:hover{transform:translateY(-4px);border-color:var(--light)}.card .copy{display:grid;gap:7px;padding:16px;flex:1}.card strong{font-family:Georgia,serif;font-size:1.42rem}.card .subject{color:var(--light);font-weight:800;font-size:.86rem}.card .desc{color:var(--muted);line-height:1.4}.art{position:relative;overflow:hidden;width:100%;display:block;background:radial-gradient(ellipse at 52% 65%,var(--light),var(--shade) 68%,#21192e);aspect-ratio:1.9}.art svg{position:absolute;inset:0;width:100%;height:100%;color:#1c1629}.space{--light:#c4aaff;--shade:#5c3d8b}.ocean{--light:#80e4ed;--shade:#217487}.jungle{--light:#b7e698;--shade:#4a713d}.egypt{--light:#ffc57f;--shade:#a65c40}
-footer{margin:32px 0 20px;color:var(--muted);font-size:.9rem}.game{margin:20px auto 34px;max-width:840px}.game .art{aspect-ratio:4.4;border-radius:16px;margin-top:14px}.panel{padding:clamp(16px,4vw,36px);margin-top:12px;border:1px solid #ffffff28;border-radius:18px;background:#211b2b}.panel h1,.panel h2{font-family:Georgia,serif;margin:8px 0 12px}.panel h1{font-size:clamp(2rem,6vw,3rem)}.panel p{line-height:1.5}.meta{color:var(--light);font-weight:800}.actions{display:flex;gap:10px;flex-wrap:wrap}.control,.answers button,.tile{min-height:46px;border:1px solid #ffffff42;border-radius:10px;background:#352a43;color:var(--ink);padding:10px 15px;font-weight:720}.control:hover,.answers button:hover,.tile:hover{border-color:var(--gold)}.primary{background:var(--gold);color:#261721;border-color:transparent}.answers{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:17px 0}.answers button{text-align:left}.answers button[data-state=correct],.tile[data-state=matched]{background:#254835;border-color:#9add9f}.answers button[data-state=incorrect]{background:#663848;border-color:#ffb4bc}.answers button[aria-disabled=true]{cursor:default}.board{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.tile{min-height:74px;padding:6px;font-size:clamp(.75rem,2vw,1rem);overflow-wrap:anywhere}.tile[data-state=shown]{background:var(--light);color:#251b32}.feedback{min-height:1.6em;color:var(--ink);font-weight:700}.status{color:var(--muted)}
-@media(max-width:900px){.games{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:460px){.hero{min-height:268px}.games,.answers{grid-template-columns:1fr}.card .art{aspect-ratio:2.4}.game .art{aspect-ratio:2.7}.board{gap:6px}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}}
+.games{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}.section-title{font-family:Georgia,serif;font-size:2rem;margin:0 0 16px}.card{display:flex;flex-direction:column;align-items:stretch;text-align:left;padding:0;overflow:hidden;border:1px solid #ffffff30;border-radius:17px;background:#211b2b;color:var(--ink);transition:transform .18s,border-color .18s}.card:hover{transform:translateY(-4px);border-color:var(--light)}.card .copy{display:grid;gap:7px;padding:16px;flex:1}.card strong{font-family:Georgia,serif;font-size:1.42rem}.card .subject{color:var(--light);font-weight:800;font-size:.86rem}.card .desc{color:var(--muted);line-height:1.4}.art{position:relative;overflow:hidden;width:100%;display:block;background:radial-gradient(ellipse at 52% 65%,var(--light),var(--shade) 68%,#21192e);aspect-ratio:1.9}.art{--cut:var(--light)}.art > svg{position:absolute;inset:0;width:100%;height:100%;color:#1c1629}.space{--light:#c4aaff;--shade:#5c3d8b}.ocean{--light:#80e4ed;--shade:#217487}.jungle{--light:#b7e698;--shade:#4a713d}.egypt{--light:#ffc57f;--shade:#a65c40}
+footer{margin:32px 0 20px;color:var(--muted);font-size:.9rem}.game{margin:20px auto 34px;max-width:840px}.game .art{aspect-ratio:4.4;border-radius:16px;margin-top:14px}.panel{padding:clamp(16px,4vw,36px);margin-top:12px;border:1px solid #ffffff28;border-radius:18px;background:#211b2b}.panel h1,.panel h2{font-family:Georgia,serif;margin:8px 0 12px}.panel h1{font-size:clamp(2rem,6vw,3rem)}.panel p{line-height:1.5}.meta{color:var(--light);font-weight:800}.actions{display:flex;gap:10px;flex-wrap:wrap}.control{min-height:46px;border:1px solid #ffffff42;border-radius:10px;background:#352a43;color:var(--ink);padding:10px 15px;font-weight:720}.control:hover{border-color:var(--gold)}.primary{background:var(--gold);color:#261721;border-color:transparent}.feedback{min-height:1.6em;color:var(--ink);font-weight:700}.status{color:var(--muted)}
+@media(max-width:900px){.games{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:460px){.hero{min-height:268px}.games{grid-template-columns:1fr}.card .art{aspect-ratio:2.4}.game .art{aspect-ratio:2.7}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}}
+
+.game {--cut:#fbe0a7}
+.hero{background:radial-gradient(ellipse at 50% 70%,#975641 3%,#4f2839 62%,#23162b)}
+.hero svg{position:absolute;inset:auto 0 0;width:100%;height:55%;z-index:-1;color:#211321}
+.game .panel{background:radial-gradient(ellipse at 50% 35%,#352941,#21192b 78%);border:1px solid color-mix(in srgb,var(--light) 34%,#27172d);box-shadow:inset 0 0 28px #150b20,0 10px 40px #100b16}
+.rack{display:flex;flex-wrap:wrap;gap:9px;margin:12px 0}.rack:has(.prop),.rack:has(.slot){display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.prop,.slot,.letter{color:var(--ink);background:#302337;border:1px solid #ffffff40;border-radius:11px;padding:9px 5px;min-height:50px;font-weight:750}.prop,.slot{display:grid;place-items:center;align-content:center;gap:6px}.prop[aria-pressed=true]{outline:3px solid var(--light);outline-offset:-3px}.prop:disabled,.letter:disabled{opacity:.42}.slot{min-height:106px;background:radial-gradient(ellipse at 50% 65%,var(--light),var(--shade) 95%);color:#1e1525}.slot.placed{box-shadow:inset 0 0 0 3px #1f142b}.slot .puppet{color:#1d1425}.slot.placed .outline{display:none}.puppet{display:block;width:58px;max-width:100%;color:#1c1426;filter:drop-shadow(2px 3px 0 #0003)}.puppet svg{display:block;width:100%;height:auto}.prop .puppet{color:var(--light);--cut:#302337}.outline{opacity:.7}.outline svg{fill:none;stroke:currentColor;stroke-width:2;stroke-dasharray:4 3}.outline svg circle[fill]{fill:none}
+.word-stage{display:grid;justify-items:center;min-height:160px;padding:10px;border:1px solid #ffffff25;border-radius:12px;background:radial-gradient(ellipse at center,#80e4ed,#255d73 72%,#1b2b47)}.actor{width:92px;opacity:.75;transition:transform .34s,opacity .34s}.actor.awake{transform:translateY(-8px) rotate(-8deg);opacity:1}.letter,.letter-slot{min-width:42px;min-height:42px;display:grid;place-items:center}.letter-slot{color:#26172b;background:#f5dcac;border:1px solid #3a243d;border-radius:8px;font-weight:850}.letter{background:var(--light);color:#23172b}.letter:hover,.prop:hover,.slot:hover{border-color:white}
+.map{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:3px;padding:5px;border-radius:12px;background:#1c2225;margin:12px 0}.map-cell{display:grid;justify-items:center;align-content:center;min-height:63px;text-align:center;border-radius:5px;background:radial-gradient(ellipse,#b8de91,#7ba465);color:#1c2225;font-size:.76rem;font-weight:850;overflow-wrap:anywhere}.map-cell .puppet{width:34px}.map-cell.here{outline:3px solid #fff1bb;outline-offset:-3px;background:#ffd486}.map-cell:not(.here):has(.puppet):not(:has(span:last-child:nth-child(2))) .puppet{opacity:.36}
+@media(max-width:560px){.rack:has(.prop),.rack:has(.slot){grid-template-columns:repeat(2,minmax(0,1fr))}.map-cell{min-height:55px;font-size:.68rem}.map-cell .puppet{width:25px}}
+@media(prefers-reduced-motion:reduce){.actor.awake{transform:none}}
 </style>
 </head>
 <body>
@@ -21,10 +32,10 @@ footer{margin:32px 0 20px;color:var(--muted);font-size:.9rem}.game{margin:20px a
 <header><button class="brand" id="homeButton"><span aria-hidden="true">✦</span> PLAY ZONE</button><span class="score" id="stars">0 stars earned</span></header>
 <main>
 <section id="lobby">
-<div class="hero"><div><span class="eyebrow">A game center for kids</span><h1 tabindex="-1" id="lobbyTitle">Play Zone</h1><p>Four shadow worlds. Pick a stage and play.</p></div></div>
+<div class="hero"><svg viewBox="0 0 1000 180" preserveAspectRatio="xMidYMax slice" aria-hidden="true" fill="currentColor"><path d="M0 156L65 145L113 155L183 139L235 150L297 145L360 154L411 144L471 153L534 148L601 156L671 146L730 155L792 145L868 147L927 139L1000 148V180H0Z M66 150L69 93L47 75L72 78L82 48L93 76L119 67L101 88L94 152Z M887 153L920 82L967 153Z"/><circle cx="158" cy="66" r="24"/><ellipse cx="158" cy="66" rx="47" ry="8" transform="rotate(-22 158 66)" fill="none" stroke="currentColor" stroke-width="4"/><path d="M804 117Q830 89 856 104L884 92L877 112L883 125L855 119Q827 137 804 117Z M847 114H851V150H847Z"/></svg><div><span class="eyebrow">A game center for kids</span><h1 tabindex="-1" id="lobbyTitle">Play Zone</h1><p>The curtain is up. Choose a puppet stage.</p></div></div>
 <h2 class="section-title">Choose a game</h2>
 <div class="games" id="games"></div>
-<footer>Play at your own pace. Stars are saved on this device.</footer>
+<footer>Play at your own pace. Stage stars stay on this device.</footer>
 </section>
 <section class="game" id="game" hidden>
 <button class="control" id="back">All games</button>
@@ -36,65 +47,60 @@ footer{margin:32px 0 20px;color:var(--muted);font-size:.9rem}.game{margin:20px a
 <script>
 "use strict";
 
-const silhouettes = {
-  space: '<g fill="currentColor"><circle cx="266" cy="80" r="47"/><path d="M200 103c26-38 137-76 142-48 5 23-96 63-139 62l-2-8c47-4 135-41 131-52-6-11-98 19-123 47z"/><path d="M97 149l25-52 39-27-8 47-38 35-12 36-9-22-22-5zM0 201l69-21 65 14 60-11 73 10 64-10 89 9v28H0z"/></g><g fill="#fff2ff" opacity=".82"><circle cx="59" cy="57" r="2"/><circle cx="352" cy="112" r="2"/><circle cx="190" cy="38" r="2"/><circle cx="380" cy="36" r="3"/><path d="M171 128l3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/></g>',
-  ocean: '<g fill="currentColor"><path d="M36 220c12-23 3-39-9-68 27 12 30 32 31 50 7-25 23-41 45-49-14 25-31 38-33 67zm258 0c19-25 13-49 8-72 18 15 23 37 17 56 14-30 37-36 51-52-5 29-22 45-35 68zM0 208l65-14 89 14 101-18 95 16 70-11v25H0z"/><path d="M274 125l-40-22c-37 19-77 20-109-8 26-34 68-34 108-10l41-24-10 32zM352 56l-22-8c-19 10-35 7-48-4 11-13 29-16 48-7l22-12-5 16z"/></g><g fill="none" stroke="#dcffff" opacity=".65"><circle cx="102" cy="54" r="5"/><circle cx="114" cy="35" r="7"/><circle cx="293" cy="103" r="5"/></g>',
-  jungle: '<g fill="currentColor"><path d="M0 0h420v22c-31-9-46-2-68 16l-7-17-15 31-31-12-27 9-19-21-42-1-19-17-31 29-20-10-24 15-27-10L74 54l-9-20-27 15L0 40zm18 0h28l9 220H16zm367 0h18l10 220h-44zM0 191l47 9 58-22 45 17 51 1 41-17 65 19 44-12 69 5v29H0z"/><path d="M113 172c77-11 118-39 149-78l-4 27 22-6c-7 31-22 46-48 45l-27 23-3-19-42 14-11 22-15-23zM257 0h4c8 30 15 55 4 81l-4-2c10-28 4-54-4-79z"/></g>',
-  egypt: '<circle cx="260" cy="75" r="46" fill="#ffdda1" opacity=".86"/><g fill="currentColor"><path d="M9 197L119 76l107 121zm140 0L259 95l111 102zm147 0l60-67 64 67zM0 195l71-8 123 9 105-6 121 7v23H0z"/><path d="M364 196l5-62-13-7-17 6 16-18-26-2 28-10-24-11 33 4 11-13 4 15 33-3-26 14 25 12-28-3 10 19-20-9-3 68z"/></g><path d="M119 76l50 120h57zm140 19l48 102h63z" fill="#7e453e" opacity=".72"/>'
+const stages = {
+  space: { cast:[["rocket",98,58,102],["saturn",240,16,145]], set:'<path d="M0 201Q63 163 134 191T265 185T420 185V220H0Z"/><g fill="#fff3db"><circle cx="51" cy="73" r="2"/><circle cx="191" cy="40" r="3"/><circle cx="371" cy="64" r="2"/><path d="M227 98l4 9 9 4-9 4-4 9-4-9-9-4 9-4z"/></g>' },
+  ocean: { cast:[["whale",48,27,164],["ray",224,55,113],["coral",325,111,99]], set:'<path d="M0 206Q70 178 135 210T288 199T420 195V220H0Z"/><g fill="none" stroke="#e3ffef" opacity=".7"><circle cx="236" cy="65" r="5"/><circle cx="251" cy="38" r="9"/><circle cx="392" cy="60" r="6"/><circle cx="71" cy="45" r="4"/></g>' },
+  jungle: { cast:[["tree",17,53,154],["ridge",144,47,141],["explorer",263,75,113]], set:'<path d="M0 0H420V28L358 51L385 19L315 43L330 20L267 43L242 20L192 40L169 14L126 43L110 22L56 54L64 25L0 58Z M0 191Q66 160 159 194T300 189T420 182V220H0Z"/><path d="M204 193Q293 180 352 221H281Q254 207 204 201Z" fill="#7ca277"/>' },
+  egypt: { cast:[["boat",122,92,110],["papyrus",330,69,77]], set:'<circle cx="237" cy="70" r="42" fill="#ffe0a2"/><path d="M16 170L94 61L184 170Z M205 164L280 72L363 164Z M0 184Q123 162 205 182T420 175V220H0Z"/><path d="M0 201Q110 178 197 198T420 193" fill="none" stroke="#ae7257" stroke-width="7"/>' }
 };
 
 const games = {
-  match: { subject:"Match", theme:"space", world:"Outer space", title:"Orbit Match", description:"Pair each space object with its clue." },
-  english: { subject:"English", theme:"ocean", world:"Under the ocean", title:"Word Reef", description:"Practice spelling, rhymes and word meanings." },
-  geography: { subject:"Geography", theme:"jungle", world:"Jungle expedition", title:"Map Quest", description:"Explore continents, oceans and landmarks." },
-  trivia: { subject:"Trivia", theme:"egypt", world:"Ancient Egypt", title:"Tomb of Wonders", description:"Discover life along the ancient Nile." }
+  match: { subject:"Match", theme:"space", world:"Outer space", title:"Orbit Match", description:"Move space puppets into their matching shadows." },
+  english: { subject:"English", theme:"ocean", world:"Under the ocean", title:"Word Reef", description:"Build words to bring an underwater cast to life." },
+  geography: { subject:"Geography", theme:"jungle", world:"Jungle expedition", title:"Map Quest", description:"Use a compass to find your way across a rainforest." },
+  trivia: { subject:"Trivia", theme:"egypt", world:"Ancient Egypt", title:"Tomb of Wonders", description:"Restore four artifacts and open your own museum." }
 };
 
-const spacePairs = [
-  ["Sun","Our nearest star"],["Earth","Our home planet"],["Moon","Earth’s natural satellite"],
-  ["Mars","The Red Planet"],["Saturn","Planet with bright rings"],["Jupiter","Largest planet"],
-  ["Comet","Icy object with a tail near the Sun"],["Asteroid","Rocky object that orbits the Sun"]
+const puppets = {
+  rocket: '<path d="M49 15Q77 40 65 68H35Q23 40 49 15Z M34 54L22 73L35 69 M65 54L78 73L65 69 M43 74L49 90L56 74"/><circle cx="49" cy="42" r="7" fill="var(--cut)"/>',
+  saturn: '<circle cx="50" cy="49" r="23"/><ellipse cx="50" cy="49" rx="43" ry="10" transform="rotate(-25 50 49)" fill="none" stroke="currentColor" stroke-width="5"/>',
+  comet: '<path d="M75 21C91 35 75 61 56 64L11 81L38 48L20 53L58 23Q66 17 75 21Z"/>',
+  moon: '<path d="M73 68A34 34 0 1 1 49 15A31 31 0 0 0 73 68Z"/>',
+  crab: '<path d="M22 48Q13 44 11 30L19 35L27 29Q32 42 25 48L34 55Q49 42 66 55L75 48Q68 42 73 29L81 35L89 30Q87 44 78 48L71 60Q70 83 49 81Q30 81 29 60Z"/><path d="M33 63L15 60M34 70L15 76M66 63L85 60M66 70L85 76" fill="none" stroke="currentColor" stroke-width="4"/><circle cx="43" cy="56" r="3" fill="var(--cut)"/><circle cx="56" cy="56" r="3" fill="var(--cut)"/>',
+  ray: '<path d="M9 34Q33 37 50 19Q68 37 91 34Q83 64 56 66Q70 83 85 82Q68 91 49 67Q19 64 9 34Z"/><circle cx="41" cy="45" r="3" fill="var(--cut)"/><circle cx="59" cy="45" r="3" fill="var(--cut)"/>',
+  coral: '<path d="M16 87H84L62 78L65 54L81 42L84 23L77 25L72 40L60 44L59 21L50 11L48 27L48 51L36 39L31 19L23 19L26 43L39 59L42 78Z"/>',
+  whale: '<path d="M8 42Q21 18 49 29Q63 36 73 53L81 42L95 41L86 59L75 62Q51 87 22 71Q8 62 8 42Z"/><circle cx="23" cy="45" r="3" fill="var(--cut)"/><path d="M37 27Q29 8 22 13M38 27Q43 8 51 16" fill="none" stroke="currentColor" stroke-width="4"/>',
+  papyrus: '<path d="M19 25Q12 20 20 14H80Q92 21 81 30V70Q92 80 81 86H20Q9 78 19 70Z"/><path d="M32 36H68M32 48H60M32 60H67" stroke="var(--cut)" stroke-width="4"/>',
+  jar: '<path d="M36 37H64L78 51Q82 75 66 88H34Q18 75 22 51Z M31 31Q32 14 50 12Q68 14 69 31Z"/><path d="M24 56H76" stroke="var(--cut)" stroke-width="4"/>',
+  boat: '<path d="M8 64Q43 80 90 57L81 73Q43 93 17 77Z M48 13H53V69H48Z M46 19L25 57H46Z M57 22L76 57H57Z"/>',
+  shabti: '<path d="M41 13Q50 8 59 13L65 32L61 42L64 58L56 87H44L36 58L39 42L35 32Z"/><path d="M42 48L58 57M58 48L42 57M43 28H47M53 28H57" fill="none" stroke="var(--cut)" stroke-width="3"/>',
+  explorer: '<path d="M30 34L37 19H63L70 34H79V40H21V34Z M38 43H62L59 57L71 64L76 83H24L29 64L41 57Z"/><path d="M41 65L50 74L59 65" fill="none" stroke="var(--cut)" stroke-width="3"/>',
+  tree: '<path d="M44 91V61L18 63L33 49L18 48L33 30L28 30L50 8L72 30H67L82 48L67 49L82 63L56 61V91Z"/>',
+  ridge: '<path d="M7 77L35 35L48 51L66 21L93 77Z"/><path d="M55 43L66 24L77 43L68 39L65 43L61 39Z" fill="var(--cut)"/>',
+  river: '<path d="M10 21Q33 11 52 24T90 21V33Q70 47 48 35T10 34Z M10 46Q33 34 52 47T90 44V57Q70 69 48 58T10 58Z M10 70Q33 57 52 71T90 67V80Q70 93 48 81T10 82Z"/>',
+  camp: '<path d="M9 80L49 16L91 80Z"/><path d="M34 80L50 48L66 80Z" fill="var(--cut)"/>'
+};
+
+const orbit = [
+  ["rocket", "Rocket", "Rockets push exhaust downward to lift off."],
+  ["saturn", "Saturn", "Saturn’s rings are made mostly of ice and rock."],
+  ["comet", "Comet", "A comet can grow a tail as it warms near the Sun."],
+  ["moon", "Crescent Moon", "A crescent is the thin, lit part of the Moon we can see."]
 ];
 
-// Each question lists the correct answer first. Choices are shuffled for play.
-const questions = {
-  english: [
-    ["Which word rhymes with ‘fin’?","Pin","Fan","Fine","‘Fin’ and ‘pin’ end with the same sound."],
-    ["Which spelling is correct?","Ocean","Oshen","Ocian","‘Ocean’ starts with ‘oc’ and ends with ‘ean’."],
-    ["What is the plural of ‘shell’?","Shells","Shelles","Shellies","Add an ‘s’ to ‘shell’ when you mean more than one."],
-    ["Which word means the opposite of ‘deep’?","Shallow","Wide","Dark","Shallow water has a short distance from the surface to the bottom."],
-    ["Which word is an action in ‘A crab crawls’?","Crawls","Crab","A","‘Crawls’ tells us what the crab does. It’s a verb."],
-    ["Which word describes the whale in ‘the enormous whale’?","Enormous","Whale","The","‘Enormous’ means very big. It’s an adjective."],
-    ["Choose the right word. ‘The fish swam past ___ boat.’","Their","There","They’re","‘Their’ shows that the boat belongs to them."],
-    ["Which word contains two smaller words?","Seahorse","Coral","Otter","‘Sea’ and ‘horse’ join to make the compound word ‘seahorse’."],
-    ["Which word means nearly the same as ‘tiny’?","Small","Swift","Tall","‘Tiny’ and ‘small’ both describe size."],
-    ["What punctuation ends ‘Where is the reef’?","Question mark","Comma","Period","The sentence asks a question, so it ends with a question mark."]
-  ],
-  geography: [
-    ["On which continent is most of the Amazon rainforest?","South America","Africa","Asia","The Amazon rainforest spreads across several South American countries."],
-    ["Which ocean is the largest?","Pacific","Atlantic","Indian","The Pacific Ocean is larger than any other ocean."],
-    ["On which continent is Kenya?","Africa","Europe","South America","Kenya sits in East Africa and the equator crosses it."],
-    ["What is the imaginary line halfway between the poles?","Equator","Prime meridian","Tropic of Cancer","The equator divides Earth into northern and southern halves."],
-    ["Which country is home to the Taj Mahal?","India","Brazil","Japan","The Taj Mahal is in Agra, a city in northern India."],
-    ["Which ocean lies between eastern Canada and Europe?","Atlantic","Pacific","Indian","The Atlantic separates much of North America from Europe."],
-    ["What does a compass rose show on a map?","Directions","Rainfall","Population","A compass rose shows directions such as north, south, east and west."],
-    ["In which country is most of the island of Borneo?","Indonesia","Japan","Australia","Indonesia shares Borneo with Malaysia and Brunei."],
-    ["Which continent surrounds the South Pole?","Antarctica","Europe","Africa","The South Pole sits on the Antarctic ice sheet."],
-    ["What is a group of islands called?","An archipelago","A peninsula","A valley","An archipelago is a group or chain of islands."]
-  ],
-  trivia: [
-    ["Which river was central to life in ancient Egypt?","Nile","Amazon","Danube","People used the Nile for water, travel and farming."],
-    ["What were the Great Pyramids of Giza built to be?","Royal tombs","Markets","Lighthouses","The pyramids at Giza were built as tombs for pharaohs."],
-    ["What do we call the picture signs used in ancient Egyptian writing?","Hieroglyphs","Runes","Braille","Hieroglyphs could represent sounds, words or ideas."],
-    ["Which plant did ancient Egyptians use to make writing sheets?","Papyrus","Cactus","Bamboo","They pressed strips from the papyrus plant into sheets."],
-    ["What animal body does the Great Sphinx have?","Lion","Crocodile","Horse","The Great Sphinx combines a lion’s body with a human head."],
-    ["What was a pharaoh?","A ruler","A sailor","A farmer","Pharaoh is the title used for the rulers of ancient Egypt."],
-    ["What was the purpose of mummification?","To preserve the body","To dye cloth","To bake bread","Ancient Egyptians preserved bodies as part of their burial customs."],
-    ["Who discovered Tutankhamun’s tomb in 1922?","Howard Carter and his team","Cleopatra and her guards","A team of astronauts","Carter and his team found the tomb in the Valley of the Kings."],
-    ["Which grain did ancient Egyptians use to make bread?","Wheat","Rice","Corn","The ancient Egyptians grew a type of wheat called emmer."],
-    ["Which sea is north of Egypt?","Mediterranean Sea","Caribbean Sea","Baltic Sea","The Nile flows north and empties into the Mediterranean Sea."]
-  ]
-};
+const words = [
+  ["crab", "CRAB", "I have claws and walk sideways.", "A crab can walk sideways because of how its legs bend."],
+  ["ray", "RAY", "I am a flat fish with wide fins.", "Rays use their fins to glide through water."],
+  ["coral", "CORAL", "A reef can be made of me.", "Coral is made up of tiny animals called polyps."],
+  ["whale", "WHALE", "I come up to the surface to breathe.", "Whales are mammals and breathe air through blowholes."]
+];
+
+const exhibits = [
+  ["papyrus", "Papyrus", "Writing desk", "Egyptians made writing sheets by pressing strips from the papyrus plant."],
+  ["jar", "Canopic jar", "Burial chamber", "Some ancient Egyptians stored organs in canopic jars during mummification."],
+  ["boat", "Sailing boat", "Nile dock", "The Nile was a major route for moving people and goods."],
+  ["shabti", "Shabti figurine", "Tomb exhibit", "People placed shabti figures in tombs to serve the deceased in the afterlife."]
+];
 
 const byId = id => document.getElementById(id);
 const activity = byId("activity");
@@ -103,7 +109,7 @@ const actions = byId("actions");
 const starKey = "play-zone-stars";
 let stars = 0;
 let lastGameButton;
-let pendingFlip;
+
 try {
   const saved = Number(localStorage.getItem(starKey));
   if (Number.isSafeInteger(saved) && saved >= 0) stars = saved;
@@ -115,7 +121,11 @@ function showStars() {
 }
 
 function art(theme) {
-  return '<span class="art ' + theme + '" aria-hidden="true"><svg viewBox="0 0 420 220" preserveAspectRatio="xMidYMid slice">' + silhouettes[theme] + '</svg></span>';
+  const {cast, set} = stages[theme];
+  const players = cast.map(([key, x, y, size]) => '<svg x="' + x + '" y="' + y +
+    '" width="' + size + '" height="' + size + '" viewBox="0 0 100 100">' + puppets[key] + '</svg>').join("");
+  return '<span class="art ' + theme + '" aria-hidden="true"><svg viewBox="0 0 420 220" preserveAspectRatio="xMidYMid slice" fill="currentColor">' +
+    set + players + '</svg></span>';
 }
 
 function element(tag, label, className) {
@@ -142,14 +152,12 @@ function shuffle(values) {
 }
 
 function showLobby() {
-  clearTimeout(pendingFlip);
   byId("game").hidden = true;
   byId("lobby").hidden = false;
   (lastGameButton ?? byId("lobbyTitle")).focus();
 }
 
 function start(id) {
-  clearTimeout(pendingFlip);
   const game = games[id];
   byId("lobby").hidden = true;
   byId("game").hidden = false;
@@ -159,8 +167,7 @@ function start(id) {
   byId("title").textContent = game.title;
   actions.replaceChildren();
   feedback.textContent = "";
-  if (id === "match") playMatch();
-  else playQuiz(id);
+  ({match: playOrbit, english: playWords, geography: playMap, trivia: playMuseum})[id]();
   byId("title").focus();
 }
 
@@ -176,110 +183,251 @@ function finish(id, earned, message) {
   heading.focus();
 }
 
-function playQuiz(id) {
-  const round = shuffle(questions[id]).slice(0, 5);
-  let number = 0;
-  let correct = 0;
-
-  function render(focusQuestion) {
-    const [prompt, answer, ...details] = round[number];
-    const explanation = details.pop();
-    const choices = element("div", "", "answers");
-    const heading = element("h2", prompt);
-    heading.tabIndex = -1;
-    activity.replaceChildren(element("p", "Question " + (number + 1) + " of " + round.length, "status"), heading, choices);
-    feedback.textContent = "";
-    actions.replaceChildren();
-    let answered = false;
-
-    for (const choice of shuffle([answer, ...details])) {
-      const option = button(choice, "", () => {
-        if (answered) return;
-        answered = true;
-        if (choice === answer) correct++;
-        for (const item of choices.children) {
-          item.setAttribute("aria-disabled", "true");
-          if (item.textContent === answer) item.dataset.state = "correct";
-        }
-        if (choice !== answer) option.dataset.state = "incorrect";
-        feedback.textContent = (choice === answer ? "Correct! " : "The answer is " + answer + ". ") + explanation;
-        const isLast = number + 1 === round.length;
-        actions.append(button(isLast ? "See results" : "Next question", "control primary", () => {
-          number++;
-          if (isLast) finish(id, correct, "You answered " + correct + " of " + round.length + " questions correctly.");
-          else render(true);
-        }));
-      });
-      choices.append(option);
-    }
-    if (focusQuestion) heading.focus();
-  }
-
-  render(false);
+function puppet(key) {
+  const art = element("span", "", "puppet");
+  art.setAttribute("aria-hidden", "true");
+  art.innerHTML = '<svg viewBox="0 0 100 114" fill="currentColor"><path d="M50 53V113" fill="none" stroke="currentColor" stroke-width="2"/>' + puppets[key] + '</svg>';
+  return art;
 }
 
-function playMatch() {
-  const pairs = shuffle(spacePairs).slice(0, 6);
-  const deck = shuffle(pairs.flatMap(([name, clue], pair) => [{label:name, pair}, {label:clue, pair}]));
-  const board = element("div", "", "board");
-  const counter = element("p", "", "status");
-  let first = null;
-  let waiting = false;
-  let matched = 0;
-  let tries = 0;
-  const update = () => {
-    counter.textContent = matched + " of " + pairs.length + " pairs found · " + tries + " tries";
-  };
-  update();
-  activity.replaceChildren(element("p", "Flip two cards. Match each object with its clue."), counter, board);
+function rack(label) {
+  const group = element("div", "", "rack");
+  group.setAttribute("role", "group");
+  group.setAttribute("aria-label", label);
+  return group;
+}
 
-  function hide(tile, slot) {
-    tile.textContent = "✦";
-    tile.setAttribute("aria-label", "Hidden card " + (slot + 1));
-    delete tile.dataset.state;
+function putOnStage(pieces, slots, instructions, id) {
+  let selected = "";
+  let placed = 0;
+  const tray = rack("Puppets");
+  const stage = rack("Stage positions");
+  const pieceButtons = new Map();
+  const slotButtons = new Map();
+  const progress = element("p", "0 of " + pieces.length + " placed", "status");
+
+  function choose(key) {
+    selected = key;
+    for (const [value, item] of pieceButtons) item.setAttribute("aria-pressed", String(value === key));
+    feedback.textContent = pieces.find(piece => piece[0] === key)[1] + " selected. Choose its place on the stage.";
   }
 
-  deck.forEach(({label, pair}, slot) => {
-    const tile = button("", "tile", () => {
-      if (waiting || tile.dataset.state) return;
-      tile.textContent = label;
-      tile.setAttribute("aria-label", label);
-      tile.dataset.state = "shown";
-      if (!first) {
-        first = {tile, pair, slot};
-        feedback.textContent = label + ". Choose a second card.";
-        return;
-      }
-      const previous = first;
-      first = null;
-      tries++;
-      if (previous.pair === pair) {
-        for (const card of [previous.tile, tile]) {
-          card.dataset.state = "matched";
-          card.setAttribute("aria-label", card.textContent + ", matched");
-          card.setAttribute("aria-disabled", "true");
-        }
-        matched++;
-        feedback.textContent = "Match found! " + pairs[pair].join(" · ");
-        if (matched === pairs.length) {
-          actions.append(button("See results", "control primary", () => {
-            finish("match", matched, "You found all " + matched + " pairs in " + tries + " tries.");
-          }));
-        }
-      } else {
-        waiting = true;
-        feedback.textContent = previous.tile.textContent + " and " + label + " do not match. Try again.";
-        pendingFlip = setTimeout(() => {
-          hide(previous.tile, previous.slot);
-          hide(tile, slot);
-          waiting = false;
-        }, 1250);
-      }
+  function place(key) {
+    const target = slotButtons.get(key);
+    if (target.getAttribute("aria-disabled") === "true") return;
+    if (!selected) {
+      feedback.textContent = "Choose a puppet from the tray first.";
+      return;
+    }
+    if (key !== selected) {
+      feedback.textContent = "Try another spot. " + pieces.find(piece => piece[0] === selected)[1] + " is still selected.";
+      return;
+    }
+    const piece = pieceButtons.get(key);
+    piece.disabled = true;
+    piece.draggable = false;
+    piece.setAttribute("aria-pressed", "false");
+    target.setAttribute("aria-disabled", "true");
+    target.classList.add("placed");
+    target.prepend(puppet(key));
+    const [, name, fact] = pieces.find(entry => entry[0] === key);
+    feedback.textContent = name + " placed. " + fact;
+    target.focus();
+    selected = "";
+    placed++;
+    progress.textContent = placed + " of " + pieces.length + " placed";
+    if (placed === pieces.length) {
+      actions.append(button("Collect your stars", "control primary", () =>
+        finish(id, placed, id === "match" ? "You matched every puppet to its shadow." : "You opened all four museum exhibits.")));
+    }
+  }
+
+  for (const [key, name] of shuffle(pieces)) {
+    const token = button(name, "prop", () => choose(key));
+    token.prepend(puppet(key));
+    token.setAttribute("aria-pressed", "false");
+    token.draggable = true;
+    token.addEventListener("dragstart", event => {
+      choose(key);
+      event.dataTransfer.setData("text/plain", key);
+    });
+    tray.append(token);
+    pieceButtons.set(key, token);
+  }
+  for (const [key, name] of slots) {
+    const target = button(name, "slot", () => place(key));
+    if (id === "match") {
+      const shape = puppet(key);
+      shape.classList.add("outline");
+      target.prepend(shape);
+    }
+    target.addEventListener("dragover", event => {
+      if (selected) event.preventDefault();
+    });
+    target.addEventListener("drop", event => {
+      event.preventDefault();
+      if (event.dataTransfer.getData("text/plain") === selected) place(key);
+    });
+    stage.append(target);
+    slotButtons.set(key, target);
+  }
+  activity.replaceChildren(element("p", instructions), progress, stage, tray);
+}
+
+function playOrbit() {
+  putOnStage(orbit, shuffle(orbit).map(([key, name], index) => [key, "Shadow " + (index + 1)]),
+    "Drag a space puppet onto its shadow, or select the puppet and then its shadow.", "match");
+}
+
+function playMuseum() {
+  const hints = ["A surface for writing", "A container for organs", "Transport along the river", "A figure for the afterlife"];
+  putOnStage(exhibits.map(([key, name, , fact]) => [key, name, fact]),
+    exhibits.map(([key, , room], index) => [key, room + " · " + hints[index]]),
+    "The museum is missing its artifacts. Drag each one into its exhibit, or select the artifact and then its exhibit.", "trivia");
+}
+
+function playWords() {
+  const cast = shuffle(words);
+  let scene = 0;
+
+  function render() {
+    const [key, word, clue, fact] = cast[scene];
+    const heading = element("h2", clue);
+    heading.tabIndex = -1;
+    const actor = puppet(key);
+    actor.classList.add("actor");
+    const blanks = rack("Your spelling");
+    const letters = rack("Letter tiles");
+    const twists = { crab: "OT", ray: "OP", coral: "UM", whale: "IS" };
+    const tiles = shuffle([...(word + twists[key])]);
+    const chosen = [];
+    const slots = [...word].map(() => element("span", "·", "letter-slot"));
+    const stage = element("div", "", "word-stage");
+    blanks.append(...slots);
+    stage.append(actor, blanks);
+    feedback.textContent = "";
+    actions.replaceChildren();
+    let solved = false;
+
+    function update() {
+      for (const [index, slot] of slots.entries()) slot.textContent = chosen[index]?.textContent ?? "·";
+    }
+
+    const undo = button("Remove last letter", "control", () => {
+      if (!chosen.length || solved) return;
+      const previous = chosen.pop();
+      previous.disabled = false;
+      previous.focus();
+      feedback.textContent = "";
       update();
     });
-    hide(tile, slot);
-    board.append(tile);
-  });
+
+    for (const letter of tiles) {
+      const tile = button(letter, "letter", () => {
+        if (chosen.length >= word.length || solved) return;
+        chosen.push(tile);
+        tile.disabled = true;
+        update();
+        feedback.textContent = chosen.map(item => item.textContent).join(" ");
+        if (chosen.length < word.length) {
+          letters.querySelector("button:not(:disabled)")?.focus();
+          return;
+        }
+        if (chosen.map(item => item.textContent).join("") !== word) {
+          feedback.textContent = "The letters spell " + chosen.map(item => item.textContent).join(" ") + ". Remove letters and try again.";
+          undo.focus();
+          return;
+        }
+        solved = true;
+        actor.classList.add("awake");
+        feedback.textContent = word + "! " + fact;
+        const next = button(scene + 1 === cast.length ? "Collect your stars" : "Next sea creature", "control primary", () => {
+          scene++;
+          if (scene === cast.length) finish("english", cast.length, "All four sea creatures are ready for the show.");
+          else render();
+        });
+        actions.replaceChildren(next);
+        next.focus();
+      });
+      letters.append(tile);
+    }
+    activity.replaceChildren(element("p", "Sea creature " + (scene + 1) + " of " + cast.length, "status"), heading, stage, letters);
+    actions.append(undo);
+    if (scene) heading.focus();
+  }
+
+  render();
+}
+
+function playMap() {
+  // Each reference cell sits on a 5-by-4 map with north at the top.
+  const landmarks = [
+    {x:1,y:0,key:"ridge",name:"Ridge",hint:"Head north twice, then one square east to reach the ridge.",fact:"A ridge is a long, narrow stretch of high ground."},
+    {x:3,y:1,key:"river",name:"River crossing",hint:"From the ridge, head two squares east and one south to cross the river.",fact:"A river flows downhill. A crossing can be a bridge or a shallow stretch."},
+    {x:4,y:3,key:"camp",name:"Camp",hint:"From the river crossing, go one square east and two south to reach camp.",fact:"East and west run across this map. North and south run up and down."}
+  ];
+  let x = 0;
+  let y = 2;
+  let found = 0;
+  const map = element("div", "", "map");
+  const clue = element("p", landmarks[0].hint);
+  const position = element("p", "", "status");
+  const controls = rack("Compass directions");
+  const cells = [];
+
+  function draw() {
+    for (const [index, cell] of cells.entries()) {
+      const col = index % 5;
+      const row = Math.floor(index / 5);
+      const site = landmarks.find(landmark => landmark.x === col && landmark.y === row);
+      const current = x === col && y === row;
+      const marker = current ? "explorer" : site?.key;
+      cell.replaceChildren();
+      cell.classList.toggle("here", current);
+      if (marker) cell.append(puppet(marker));
+      else if ((col + row) % 2 === 0) cell.append(puppet("tree"));
+      if (site) cell.append(element("span", site.name));
+    }
+    position.textContent = "Column " + (x + 1) + ", row " + (y + 1) + " · " + found + " of " + landmarks.length + " landmarks reached";
+  }
+
+  function move(name, dx, dy) {
+    if (found === landmarks.length) return;
+    const nx = x + dx;
+    const ny = y + dy;
+    if (nx < 0 || nx > 4 || ny < 0 || ny > 3) {
+      feedback.textContent = "That takes you off the map. Choose another direction.";
+      return;
+    }
+    x = nx;
+    y = ny;
+    const target = landmarks[found];
+    feedback.textContent = "Moved " + name.toLowerCase() + " to column " + (x + 1) + ", row " + (y + 1) + ".";
+    if (x === target.x && y === target.y) {
+      found++;
+      feedback.textContent = "You reached " + target.name + "! " + target.fact;
+      clue.textContent = landmarks[found]?.hint ?? "You made it to camp.";
+      if (found === landmarks.length) {
+        const collect = button("Collect your stars", "control primary", () =>
+          finish("geography", found, "You reached the ridge, crossed the river and found camp."));
+        actions.append(collect);
+        collect.focus();
+      }
+    }
+    draw();
+  }
+
+  for (let index = 0; index < 20; index++) {
+    const cell = element("div", "", "map-cell");
+    map.append(cell);
+    cells.push(cell);
+  }
+  map.setAttribute("aria-hidden", "true");
+  for (const [label, dx, dy] of [["North",0,-1],["West",-1,0],["South",0,1],["East",1,0]]) {
+    controls.append(button(label, "control", () => move(label, dx, dy)));
+  }
+  draw();
+  activity.replaceChildren(clue, position, map, controls);
 }
 
 for (const [id, game] of Object.entries(games)) {
