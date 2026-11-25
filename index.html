@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#100e19">
+<meta name="description" content="Play four free learning games in a shadow puppet theatre.">
+<title>Play Zone · A Game Center for Kids</title>
+<style>
+:root{color-scheme:dark;--ink:#fff5e1;--muted:#d2c4d6;--night:#100e19;--gold:#ffd486;font-family:system-ui,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#23172e,var(--night) 66%);color:var(--ink);min-height:100vh}button{font:inherit;cursor:pointer}button:focus-visible{outline:3px solid #fff;outline-offset:4px}[hidden]{display:none!important}
+.shell{width:min(1180px,calc(100% - 32px));margin:auto}header{display:flex;justify-content:space-between;align-items:center;padding:20px 0;border-bottom:1px solid #ffffff24;gap:12px}.brand{color:var(--ink);background:none;border:0;padding:6px 0;font-weight:900;letter-spacing:.06em}.brand span,.score{color:var(--gold)}.score{font-size:.9rem;font-weight:800;border:1px solid #ffd48650;padding:8px 13px;border-radius:20px;text-align:center}
+.hero{min-height:350px;display:grid;place-items:center;text-align:center;position:relative;isolation:isolate;overflow:hidden;margin:20px 0 34px;border:1px solid #87616a;border-radius:24px;background:radial-gradient(ellipse at 50% 74%,#ab5641,#462339 62%,#23162b)}.hero::before,.hero::after{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none}.hero::before{background:repeating-linear-gradient(96deg,#291223 0%,#63273d 5%,#311421 12%);clip-path:polygon(0 0,100% 0,100% 100%,91% 100%,87% 25%,68% 11%,50% 15%,32% 11%,13% 25%,9% 100%,0 100%)}.hero::after{background:linear-gradient(transparent 87%,#201320 100%),repeating-linear-gradient(0deg,transparent 0 3px,#180a150f 3px 4px)}.hero div{padding:35px 24px}.hero h1{font-family:Georgia,serif;font-size:clamp(3.8rem,12vw,8rem);letter-spacing:-.075em;line-height:.93;margin:12px 0 19px;text-shadow:0 6px #602d39,0 12px 35px #260f28}.eyebrow{color:var(--gold);text-transform:uppercase;letter-spacing:.16em;font-size:.82rem;font-weight:850}.hero p{margin:0 auto;max-width:27rem}
+.games{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}.section-title{font-family:Georgia,serif;font-size:2rem;margin:0 0 16px}.card{display:flex;flex-direction:column;align-items:stretch;text-align:left;padding:0;overflow:hidden;border:1px solid #ffffff30;border-radius:17px;background:#211b2b;color:var(--ink);transition:transform .18s,border-color .18s}.card:hover{transform:translateY(-4px);border-color:var(--light)}.card .copy{display:grid;gap:7px;padding:16px;flex:1}.card strong{font-family:Georgia,serif;font-size:1.42rem}.card .subject{color:var(--light);font-weight:800;font-size:.86rem}.card .desc{color:var(--muted);line-height:1.4}.art{position:relative;overflow:hidden;width:100%;display:block;background:radial-gradient(ellipse at 52% 65%,var(--light),var(--shade) 68%,#21192e);aspect-ratio:1.9}.art svg{position:absolute;inset:0;width:100%;height:100%;color:#1c1629}.space{--light:#c4aaff;--shade:#5c3d8b}.ocean{--light:#80e4ed;--shade:#217487}.jungle{--light:#b7e698;--shade:#4a713d}.egypt{--light:#ffc57f;--shade:#a65c40}
+footer{margin:32px 0 20px;color:var(--muted);font-size:.9rem}.game{margin:20px auto 34px;max-width:840px}.game .art{aspect-ratio:4.4;border-radius:16px;margin-top:14px}.panel{padding:clamp(16px,4vw,36px);margin-top:12px;border:1px solid #ffffff28;border-radius:18px;background:#211b2b}.panel h1,.panel h2{font-family:Georgia,serif;margin:8px 0 12px}.panel h1{font-size:clamp(2rem,6vw,3rem)}.panel p{line-height:1.5}.meta{color:var(--light);font-weight:800}.actions{display:flex;gap:10px;flex-wrap:wrap}.control,.answers button,.tile{min-height:46px;border:1px solid #ffffff42;border-radius:10px;background:#352a43;color:var(--ink);padding:10px 15px;font-weight:720}.control:hover,.answers button:hover,.tile:hover{border-color:var(--gold)}.primary{background:var(--gold);color:#261721;border-color:transparent}.answers{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:17px 0}.answers button{text-align:left}.answers button[data-state=correct],.tile[data-state=matched]{background:#254835;border-color:#9add9f}.answers button[data-state=incorrect]{background:#663848;border-color:#ffb4bc}.answers button[aria-disabled=true]{cursor:default}.board{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.tile{min-height:74px;padding:6px;font-size:clamp(.75rem,2vw,1rem);overflow-wrap:anywhere}.tile[data-state=shown]{background:var(--light);color:#251b32}.feedback{min-height:1.6em;color:var(--ink);font-weight:700}.status{color:var(--muted)}
+@media(max-width:900px){.games{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:460px){.hero{min-height:268px}.games,.answers{grid-template-columns:1fr}.card .art{aspect-ratio:2.4}.game .art{aspect-ratio:2.7}.board{gap:6px}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header><button class="brand" id="homeButton"><span aria-hidden="true">✦</span> PLAY ZONE</button><span class="score" id="stars">0 stars earned</span></header>
+<main>
+<section id="lobby">
+<div class="hero"><div><span class="eyebrow">A game center for kids</span><h1 tabindex="-1" id="lobbyTitle">Play Zone</h1><p>Four shadow worlds. Pick a stage and play.</p></div></div>
+<h2 class="section-title">Choose a game</h2>
+<div class="games" id="games"></div>
+<footer>Play at your own pace. Stars are saved on this device.</footer>
+</section>
+<section class="game" id="game" hidden>
+<button class="control" id="back">All games</button>
+<div id="scene"></div>
+<div class="panel"><div class="meta" id="world"></div><h1 id="title" tabindex="-1"></h1><div id="activity"></div><p id="feedback" class="feedback" role="status"></p><div class="actions" id="actions"></div></div>
+</section>
+</main>
+</div>
+<script>
+"use strict";
+
+const silhouettes = {
+  space: '<g fill="currentColor"><circle cx="266" cy="80" r="47"/><path d="M200 103c26-38 137-76 142-48 5 23-96 63-139 62l-2-8c47-4 135-41 131-52-6-11-98 19-123 47z"/><path d="M97 149l25-52 39-27-8 47-38 35-12 36-9-22-22-5zM0 201l69-21 65 14 60-11 73 10 64-10 89 9v28H0z"/></g><g fill="#fff2ff" opacity=".82"><circle cx="59" cy="57" r="2"/><circle cx="352" cy="112" r="2"/><circle cx="190" cy="38" r="2"/><circle cx="380" cy="36" r="3"/><path d="M171 128l3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/></g>',
+  ocean: '<g fill="currentColor"><path d="M36 220c12-23 3-39-9-68 27 12 30 32 31 50 7-25 23-41 45-49-14 25-31 38-33 67zm258 0c19-25 13-49 8-72 18 15 23 37 17 56 14-30 37-36 51-52-5 29-22 45-35 68zM0 208l65-14 89 14 101-18 95 16 70-11v25H0z"/><path d="M274 125l-40-22c-37 19-77 20-109-8 26-34 68-34 108-10l41-24-10 32zM352 56l-22-8c-19 10-35 7-48-4 11-13 29-16 48-7l22-12-5 16z"/></g><g fill="none" stroke="#dcffff" opacity=".65"><circle cx="102" cy="54" r="5"/><circle cx="114" cy="35" r="7"/><circle cx="293" cy="103" r="5"/></g>',
+  jungle: '<g fill="currentColor"><path d="M0 0h420v22c-31-9-46-2-68 16l-7-17-15 31-31-12-27 9-19-21-42-1-19-17-31 29-20-10-24 15-27-10L74 54l-9-20-27 15L0 40zm18 0h28l9 220H16zm367 0h18l10 220h-44zM0 191l47 9 58-22 45 17 51 1 41-17 65 19 44-12 69 5v29H0z"/><path d="M113 172c77-11 118-39 149-78l-4 27 22-6c-7 31-22 46-48 45l-27 23-3-19-42 14-11 22-15-23zM257 0h4c8 30 15 55 4 81l-4-2c10-28 4-54-4-79z"/></g>',
+  egypt: '<circle cx="260" cy="75" r="46" fill="#ffdda1" opacity=".86"/><g fill="currentColor"><path d="M9 197L119 76l107 121zm140 0L259 95l111 102zm147 0l60-67 64 67zM0 195l71-8 123 9 105-6 121 7v23H0z"/><path d="M364 196l5-62-13-7-17 6 16-18-26-2 28-10-24-11 33 4 11-13 4 15 33-3-26 14 25 12-28-3 10 19-20-9-3 68z"/></g><path d="M119 76l50 120h57zm140 19l48 102h63z" fill="#7e453e" opacity=".72"/>'
+};
+
+const games = {
+  match: { subject:"Match", theme:"space", world:"Outer space", title:"Orbit Match", description:"Pair each space object with its clue." },
+  english: { subject:"English", theme:"ocean", world:"Under the ocean", title:"Word Reef", description:"Practice spelling, rhymes and word meanings." },
+  geography: { subject:"Geography", theme:"jungle", world:"Jungle expedition", title:"Map Quest", description:"Explore continents, oceans and landmarks." },
+  trivia: { subject:"Trivia", theme:"egypt", world:"Ancient Egypt", title:"Tomb of Wonders", description:"Discover life along the ancient Nile." }
+};
+
+const spacePairs = [
+  ["Sun","Our nearest star"],["Earth","Our home planet"],["Moon","Earth’s natural satellite"],
+  ["Mars","The Red Planet"],["Saturn","Planet with bright rings"],["Jupiter","Largest planet"],
+  ["Comet","Icy object with a tail near the Sun"],["Asteroid","Rocky object that orbits the Sun"]
+];
+
+// Each question lists the correct answer first. Choices are shuffled for play.
+const questions = {
+  english: [
+    ["Which word rhymes with ‘fin’?","Pin","Fan","Fine","‘Fin’ and ‘pin’ end with the same sound."],
+    ["Which spelling is correct?","Ocean","Oshen","Ocian","‘Ocean’ starts with ‘oc’ and ends with ‘ean’."],
+    ["What is the plural of ‘shell’?","Shells","Shelles","Shellies","Add an ‘s’ to ‘shell’ when you mean more than one."],
+    ["Which word means the opposite of ‘deep’?","Shallow","Wide","Dark","Shallow water has a short distance from the surface to the bottom."],
+    ["Which word is an action in ‘A crab crawls’?","Crawls","Crab","A","‘Crawls’ tells us what the crab does. It’s a verb."],
+    ["Which word describes the whale in ‘the enormous whale’?","Enormous","Whale","The","‘Enormous’ means very big. It’s an adjective."],
+    ["Choose the right word. ‘The fish swam past ___ boat.’","Their","There","They’re","‘Their’ shows that the boat belongs to them."],
+    ["Which word contains two smaller words?","Seahorse","Coral","Otter","‘Sea’ and ‘horse’ join to make the compound word ‘seahorse’."],
+    ["Which word means nearly the same as ‘tiny’?","Small","Swift","Tall","‘Tiny’ and ‘small’ both describe size."],
+    ["What punctuation ends ‘Where is the reef’?","Question mark","Comma","Period","The sentence asks a question, so it ends with a question mark."]
+  ],
+  geography: [
+    ["On which continent is most of the Amazon rainforest?","South America","Africa","Asia","The Amazon rainforest spreads across several South American countries."],
+    ["Which ocean is the largest?","Pacific","Atlantic","Indian","The Pacific Ocean is larger than any other ocean."],
+    ["On which continent is Kenya?","Africa","Europe","South America","Kenya sits in East Africa and the equator crosses it."],
+    ["What is the imaginary line halfway between the poles?","Equator","Prime meridian","Tropic of Cancer","The equator divides Earth into northern and southern halves."],
+    ["Which country is home to the Taj Mahal?","India","Brazil","Japan","The Taj Mahal is in Agra, a city in northern India."],
+    ["Which ocean lies between eastern Canada and Europe?","Atlantic","Pacific","Indian","The Atlantic separates much of North America from Europe."],
+    ["What does a compass rose show on a map?","Directions","Rainfall","Population","A compass rose shows directions such as north, south, east and west."],
+    ["In which country is most of the island of Borneo?","Indonesia","Japan","Australia","Indonesia shares Borneo with Malaysia and Brunei."],
+    ["Which continent surrounds the South Pole?","Antarctica","Europe","Africa","The South Pole sits on the Antarctic ice sheet."],
+    ["What is a group of islands called?","An archipelago","A peninsula","A valley","An archipelago is a group or chain of islands."]
+  ],
+  trivia: [
+    ["Which river was central to life in ancient Egypt?","Nile","Amazon","Danube","People used the Nile for water, travel and farming."],
+    ["What were the Great Pyramids of Giza built to be?","Royal tombs","Markets","Lighthouses","The pyramids at Giza were built as tombs for pharaohs."],
+    ["What do we call the picture signs used in ancient Egyptian writing?","Hieroglyphs","Runes","Braille","Hieroglyphs could represent sounds, words or ideas."],
+    ["Which plant did ancient Egyptians use to make writing sheets?","Papyrus","Cactus","Bamboo","They pressed strips from the papyrus plant into sheets."],
+    ["What animal body does the Great Sphinx have?","Lion","Crocodile","Horse","The Great Sphinx combines a lion’s body with a human head."],
+    ["What was a pharaoh?","A ruler","A sailor","A farmer","Pharaoh is the title used for the rulers of ancient Egypt."],
+    ["What was the purpose of mummification?","To preserve the body","To dye cloth","To bake bread","Ancient Egyptians preserved bodies as part of their burial customs."],
+    ["Who discovered Tutankhamun’s tomb in 1922?","Howard Carter and his team","Cleopatra and her guards","A team of astronauts","Carter and his team found the tomb in the Valley of the Kings."],
+    ["Which grain did ancient Egyptians use to make bread?","Wheat","Rice","Corn","The ancient Egyptians grew a type of wheat called emmer."],
+    ["Which sea is north of Egypt?","Mediterranean Sea","Caribbean Sea","Baltic Sea","The Nile flows north and empties into the Mediterranean Sea."]
+  ]
+};
+
+const byId = id => document.getElementById(id);
+const activity = byId("activity");
+const feedback = byId("feedback");
+const actions = byId("actions");
+const starKey = "play-zone-stars";
+let stars = 0;
+let lastGameButton;
+let pendingFlip;
+try {
+  const saved = Number(localStorage.getItem(starKey));
+  if (Number.isSafeInteger(saved) && saved >= 0) stars = saved;
+} catch {}
+showStars();
+
+function showStars() {
+  byId("stars").textContent = stars + (stars === 1 ? " star earned" : " stars earned");
+}
+
+function art(theme) {
+  return '<span class="art ' + theme + '" aria-hidden="true"><svg viewBox="0 0 420 220" preserveAspectRatio="xMidYMid slice">' + silhouettes[theme] + '</svg></span>';
+}
+
+function element(tag, label, className) {
+  const node = document.createElement(tag);
+  node.textContent = label;
+  if (className) node.className = className;
+  return node;
+}
+
+function button(label, className, onClick) {
+  const node = element("button", label, className);
+  node.type = "button";
+  node.addEventListener("click", onClick);
+  return node;
+}
+
+function shuffle(values) {
+  const result = [...values];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
+
+function showLobby() {
+  clearTimeout(pendingFlip);
+  byId("game").hidden = true;
+  byId("lobby").hidden = false;
+  (lastGameButton ?? byId("lobbyTitle")).focus();
+}
+
+function start(id) {
+  clearTimeout(pendingFlip);
+  const game = games[id];
+  byId("lobby").hidden = true;
+  byId("game").hidden = false;
+  byId("game").className = "game " + game.theme;
+  byId("scene").innerHTML = art(game.theme);
+  byId("world").textContent = game.world + " · " + game.subject;
+  byId("title").textContent = game.title;
+  actions.replaceChildren();
+  feedback.textContent = "";
+  if (id === "match") playMatch();
+  else playQuiz(id);
+  byId("title").focus();
+}
+
+function finish(id, earned, message) {
+  stars += earned;
+  try { localStorage.setItem(starKey, String(stars)); } catch {}
+  showStars();
+  const heading = element("h2", "Round complete");
+  heading.tabIndex = -1;
+  activity.replaceChildren(heading, element("p", message));
+  feedback.textContent = earned === 1 ? "You earned 1 star." : "You earned " + earned + " stars.";
+  actions.replaceChildren(button("Play again", "control primary", () => start(id)));
+  heading.focus();
+}
+
+function playQuiz(id) {
+  const round = shuffle(questions[id]).slice(0, 5);
+  let number = 0;
+  let correct = 0;
+
+  function render(focusQuestion) {
+    const [prompt, answer, ...details] = round[number];
+    const explanation = details.pop();
+    const choices = element("div", "", "answers");
+    const heading = element("h2", prompt);
+    heading.tabIndex = -1;
+    activity.replaceChildren(element("p", "Question " + (number + 1) + " of " + round.length, "status"), heading, choices);
+    feedback.textContent = "";
+    actions.replaceChildren();
+    let answered = false;
+
+    for (const choice of shuffle([answer, ...details])) {
+      const option = button(choice, "", () => {
+        if (answered) return;
+        answered = true;
+        if (choice === answer) correct++;
+        for (const item of choices.children) {
+          item.setAttribute("aria-disabled", "true");
+          if (item.textContent === answer) item.dataset.state = "correct";
+        }
+        if (choice !== answer) option.dataset.state = "incorrect";
+        feedback.textContent = (choice === answer ? "Correct! " : "The answer is " + answer + ". ") + explanation;
+        const isLast = number + 1 === round.length;
+        actions.append(button(isLast ? "See results" : "Next question", "control primary", () => {
+          number++;
+          if (isLast) finish(id, correct, "You answered " + correct + " of " + round.length + " questions correctly.");
+          else render(true);
+        }));
+      });
+      choices.append(option);
+    }
+    if (focusQuestion) heading.focus();
+  }
+
+  render(false);
+}
+
+function playMatch() {
+  const pairs = shuffle(spacePairs).slice(0, 6);
+  const deck = shuffle(pairs.flatMap(([name, clue], pair) => [{label:name, pair}, {label:clue, pair}]));
+  const board = element("div", "", "board");
+  const counter = element("p", "", "status");
+  let first = null;
+  let waiting = false;
+  let matched = 0;
+  let tries = 0;
+  const update = () => {
+    counter.textContent = matched + " of " + pairs.length + " pairs found · " + tries + " tries";
+  };
+  update();
+  activity.replaceChildren(element("p", "Flip two cards. Match each object with its clue."), counter, board);
+
+  function hide(tile, slot) {
+    tile.textContent = "✦";
+    tile.setAttribute("aria-label", "Hidden card " + (slot + 1));
+    delete tile.dataset.state;
+  }
+
+  deck.forEach(({label, pair}, slot) => {
+    const tile = button("", "tile", () => {
+      if (waiting || tile.dataset.state) return;
+      tile.textContent = label;
+      tile.setAttribute("aria-label", label);
+      tile.dataset.state = "shown";
+      if (!first) {
+        first = {tile, pair, slot};
+        feedback.textContent = label + ". Choose a second card.";
+        return;
+      }
+      const previous = first;
+      first = null;
+      tries++;
+      if (previous.pair === pair) {
+        for (const card of [previous.tile, tile]) {
+          card.dataset.state = "matched";
+          card.setAttribute("aria-label", card.textContent + ", matched");
+          card.setAttribute("aria-disabled", "true");
+        }
+        matched++;
+        feedback.textContent = "Match found! " + pairs[pair].join(" · ");
+        if (matched === pairs.length) {
+          actions.append(button("See results", "control primary", () => {
+            finish("match", matched, "You found all " + matched + " pairs in " + tries + " tries.");
+          }));
+        }
+      } else {
+        waiting = true;
+        feedback.textContent = previous.tile.textContent + " and " + label + " do not match. Try again.";
+        pendingFlip = setTimeout(() => {
+          hide(previous.tile, previous.slot);
+          hide(tile, slot);
+          waiting = false;
+        }, 1250);
+      }
+      update();
+    });
+    hide(tile, slot);
+    board.append(tile);
+  });
+}
+
+for (const [id, game] of Object.entries(games)) {
+  const card = button("", "card " + game.theme, () => {
+    lastGameButton = card;
+    start(id);
+  });
+  card.innerHTML = art(game.theme);
+  const copy = element("span", "", "copy");
+  copy.append(element("span", game.subject + " · " + game.world, "subject"),
+    element("strong", game.title), element("span", game.description, "desc"));
+  card.append(copy);
+  byId("games").append(card);
+}
+
+byId("homeButton").addEventListener("click", showLobby);
+byId("back").addEventListener("click", showLobby);
+</script>
+</body>
+</html>
