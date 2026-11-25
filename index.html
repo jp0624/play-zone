@@ -39,6 +39,18 @@ footer{margin:32px 0 20px;color:var(--muted);font-size:.9rem}.game{margin:20px a
 .cue{flex:1 1 104px;min-width:0;display:grid;gap:4px;justify-items:center;align-content:center;background:#32263f;color:var(--ink);border:1px solid #ffffff40;border-radius:9px;padding:8px 5px}.cue[aria-pressed=true]{box-shadow:inset 0 0 0 2px var(--light)}.cue-symbol{color:var(--light);font-size:1.8rem}.cue span:last-child{font-size:.85rem}.control:disabled,.cue:disabled{opacity:.55;cursor:default}
 @media(min-width:901px){.games{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .workshop-critter{position:absolute;right:22px;top:6px;transform:rotate(10deg);transition:transform .35s}.workshop-critter .puppet{width:64px;color:#28192d;--cut:#e6b078}.workshop-critter.awake{transform:translateY(-4px) rotate(-8deg)}.workshop-critter.awake .puppet{color:#ffd693;--cut:#5d3545}.game .workbench{min-height:185px}@media(prefers-reduced-motion:reduce){.workshop-critter.awake{transform:none}}
+
+.game .panel{position:relative;isolation:isolate}
+#celebration{position:absolute;inset:0;pointer-events:none;overflow:hidden;border-radius:inherit;z-index:2}
+.applause{position:absolute;top:26px;right:28px;width:1px;height:1px}
+.applause.curtain{top:48%;right:50%}
+.applause.curtain::before{content:"";position:absolute;width:265px;height:160px;transform:translate(-50%,-50%);background:radial-gradient(ellipse,#ffd37b72,transparent 70%);animation:stage-glow 1.22s ease-out both}
+.paper-star{position:absolute;top:0;left:0;color:#ffda8e;font-size:1.28rem;line-height:1;filter:drop-shadow(1px 2px 0 #773f55);animation:paper-flight .65s ease-out both}
+.paper-star:nth-child(3n){color:#ffc2d1}.paper-star:nth-child(3n + 1){color:#fff1b8}
+.curtain .paper-star{font-size:clamp(1.15rem,4vw,2rem);animation-duration:1.22s}
+@keyframes paper-flight{0%{opacity:0;transform:translate(-50%,-50%) scale(.32)}16%{opacity:1}56%{transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) rotate(var(--turn));opacity:1}100%{transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y) + 17px)) rotate(var(--turn)) scale(.72);opacity:0}}
+@keyframes stage-glow{0%,100%{opacity:0}26%{opacity:1}}
+@media(prefers-reduced-motion:reduce){.paper-star,.applause.curtain::before{animation:none}.paper-star{transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y)))}.applause.curtain::before{opacity:0}}
 </style>
 </head>
 <body>
@@ -54,7 +66,7 @@ footer{margin:32px 0 20px;color:var(--muted);font-size:.9rem}.game{margin:20px a
 <section class="game" id="game" hidden>
 <button class="control" id="back">All games</button>
 <div id="scene"></div>
-<div class="panel"><div class="meta" id="world"></div><h1 id="title" tabindex="-1"></h1><div class="level-menu"><label for="level">Level</label><select id="level"></select><span id="progress"></span></div><div id="activity"></div><p id="feedback" class="feedback" role="status"></p><div class="actions" id="actions"></div></div>
+<div class="panel"><div id="celebration" aria-hidden="true"></div><div class="meta" id="world"></div><h1 id="title" tabindex="-1"></h1><div class="level-menu"><label for="level">Level</label><select id="level"></select><span id="progress"></span></div><div id="activity"></div><p id="feedback" class="feedback" role="status"></p><div class="actions" id="actions"></div></div>
 </section>
 </main>
 </div>
@@ -282,13 +294,39 @@ function shuffle(values) {
   return result;
 }
 
+let celebrationTimer;
+function clearCelebration() {
+  clearTimeout(celebrationTimer);
+  byId("celebration").replaceChildren();
+}
+
+function celebrate(kind) {
+  clearCelebration();
+  const stage = byId("celebration");
+  const burst = element("span", "", "applause " + kind);
+  const count = kind === "curtain" ? 12 : 5;
+  for (let i = 0; i < count; i++) {
+    const angle = i * 2 * Math.PI / count - Math.PI / 2;
+    const radius = kind === "curtain" ? 92 + (i % 3) * 19 : 34 + (i % 2) * 14;
+    const star = element("span", i % 2 ? "✦" : "★", "paper-star");
+    star.style.setProperty("--x", Math.round(Math.cos(angle) * radius) + "px");
+    star.style.setProperty("--y", Math.round(Math.sin(angle) * radius * .58) + "px");
+    star.style.setProperty("--turn", (i % 2 ? 1 : -1) * (26 + i * 10) + "deg");
+    burst.append(star);
+  }
+  stage.append(burst);
+  celebrationTimer = setTimeout(clearCelebration, kind === "curtain" ? 1300 : 680);
+}
+
 function showLobby() {
+  clearCelebration();
   byId("game").hidden = true;
   byId("lobby").hidden = false;
   (lastGameButton ?? byId("lobbyTitle")).focus();
 }
 
 function start(id, index = 0, keepFocus = false) {
+  clearCelebration();
   levelIndex = index;
   const game = games[id];
   byId("lobby").hidden = true;
@@ -324,6 +362,7 @@ function finish(id, earned, message) {
     actions.prepend(button("Next level", "control primary", () => start(id,index + 1)));
   }
   heading.focus();
+  celebrate("curtain");
 }
 
 function puppet(key) {
@@ -377,6 +416,7 @@ function putOnStage(pieces, slots, instructions, id) {
     feedback.textContent = name + " placed. " + fact;
     target.focus();
     selected = "";
+    celebrate("mark");
     placed++;
     progress.textContent = placed + " of " + pieces.length + " placed";
     if (placed === pieces.length) {
@@ -481,6 +521,7 @@ function playWords([,wordList]) {
           return;
         }
         solved = true;
+        celebrate("mark");
         actor.classList.add("awake");
         feedback.textContent = word + "! " + fact;
         const next = button(scene + 1 === cast.length ? "Collect your stars" : "Next sea creature", "control primary", () => {
@@ -561,6 +602,7 @@ function playMap([,origin,...waypoints]) {
     feedback.textContent = "Moved " + name.toLowerCase() + " to column " + (x + 1) + ", row " + (y + 1) + ".";
     if (x === target.x && y === target.y) {
       found++;
+      celebrate("mark");
       feedback.textContent = "You reached " + target.name + "! " + target.fact;
       if (found === landmarks.length) {
         const collect = button("Collect your stars", "control primary", () =>
@@ -720,6 +762,7 @@ function playWorkshop([,critter,path,limits]) {
       sleeper.classList.add("awake");
       target.textContent = critter + " is awake!";
       feedback.textContent = "The marble rang the bell!";
+      celebrate("mark");
       const reward = button("Collect your stars","control primary", () => finish("workshop",path.length,"Your marble run woke " + critter + "."));
       actions.append(reward);
       return true;
@@ -759,6 +802,7 @@ function playFilm([,beats]) {
         return false;
       }
       feedback.textContent = "The film is ready for its premiere.";
+      celebrate("mark");
       actions.append(button("Collect your stars","control primary", () => finish("film",beats.length,"Your cues helped Fox find the way home.")));
       return true;
     });
